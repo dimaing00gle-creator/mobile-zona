@@ -1,40 +1,46 @@
-# Mobile Zona — лендинг
+# Mobile Zona — landing page
 
-Next.js 16 (App Router, React 19, TypeScript). Головна сторінка генерується статично (SSG), заявки обробляє серверний маршрут `/api/lead` і надсилає їх у Telegram.
+Landing page for a Ukrainian chain of smartphone and accessory stores. The goal is lead generation: a visitor requests a consultation, a manager calls back and reserves the product in the nearest store.
 
-## Запуск
+Built with Next.js 16 (App Router, React 19, TypeScript). The home page is statically generated (SSG); leads are handled by the `/api/lead` route and forwarded to Telegram.
+
+## Getting started
+
+Requires Node.js 20.9 or newer.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev        # http://localhost:3000
 npm run build && npm start
+npm run typecheck
 ```
 
-Node.js встановлено в `~/.local/node`. Якщо `npm` не знаходиться, додайте до PATH: `export PATH=$HOME/.local/node/bin:$PATH`.
+## Configuration
 
-## Налаштування
+Copy `.env.example` to `.env.local` and fill in:
 
-Скопіюйте `.env.example` у `.env.local` і заповніть:
-
-| Змінна | Що це |
+| Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Публічний домен сайту: canonical, sitemap, Open Graph |
-| `TELEGRAM_BOT_TOKEN` | Токен бота від @BotFather |
-| `TELEGRAM_CHAT_ID` | ID чату менеджерів, куди бот пише заявки |
+| `NEXT_PUBLIC_SITE_URL` | Public domain: canonical URL, sitemap, Open Graph |
+| `TELEGRAM_BOT_TOKEN` | Bot token from @BotFather |
+| `TELEGRAM_CHAT_ID` | Managers' chat ID where the bot posts leads |
 
-Без Telegram-змінних у режимі розробки заявка лише виводиться в консоль сервера, а в продакшні форма повертає помилку.
+Without the Telegram variables, leads are only logged to the server console in development; in production the form returns an error.
 
-## Де редагувати контент
+## Editing content
 
-Усі тексти, ціни, адреси магазинів і відгуки лежать у `src/content/site.ts`. Тестові дані позначені коментарем `ЗАМІНИТИ`.
-Відгуки там лише приклади для верстки: перед публікацією їх треба замінити на справжні.
+All copy, prices, store addresses and reviews live in `src/content/site.ts`. Placeholder data is marked with a `ЗАМІНИТИ` (“replace”) comment.
+The reviews are layout samples only and must be replaced with real ones before launch.
 
-## Структура
+The site itself is Ukrainian-only.
 
-- `src/app/` — layout із SEO-метаданими, сторінка, `robots.txt`, `sitemap.xml`, маніфест, OG-картинка, `/privacy`, `/api/lead`
-- `src/components/` — секції (Header, Hero, ProductSlider, Services, About, Reviews, StoreFinder, Contacts + LeadForm, Footer, MobileCta) і JSON-LD
-- `src/app/globals.css` — дизайн-токени: 3 кольори (#F1F0ED, #1D1D1F, #E2F23A) та їхні прозорості
+## Project structure
 
-## Фото
+- `src/app/` — layout with SEO metadata, home page, `robots.txt`, `sitemap.xml`, manifest, OG image, `/privacy`, `/api/lead`
+- `src/components/` — one folder per component (`Name/Name.tsx`, `Name.module.css`, `index.ts`)
+- `src/lib/` — lead validation, shared formatters, image loader, smooth scroll
+- `src/app/globals.css` — design tokens: 3 colors (#F1F0ED, #1D1D1F, #E2F23A) and their opacities
 
-Фото взято з Unsplash (вільна ліцензія) і віддаються з CDN Unsplash через `src/lib/image-loader.ts`. Щоб поставити власні фото, покладіть їх у `public/` і вкажіть шлях у `site.ts`.
+## Images
+
+Stock photos come from Unsplash (free license) and are served by the Unsplash CDN via `src/lib/image-loader.ts`. To use your own photos, put them in `public/` and reference the path in `site.ts`.
