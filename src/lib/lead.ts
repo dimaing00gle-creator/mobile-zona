@@ -11,13 +11,13 @@ export type Lead = {
   contactMethod: ContactMethod;
   comment: string;
   consent: boolean;
-  /** Пастка для ботів: справжні користувачі це поле не бачать */
+  /** Honeypot: real users never see this field */
   company?: string;
 };
 
 export type LeadErrors = Partial<Record<"name" | "phone" | "consent", string>>;
 
-/** Приводить номер до формату +380XXXXXXXXX або повертає null */
+/** Normalizes a number to +380XXXXXXXXX or returns null */
 export function normalizeUaPhone(raw: string): string | null {
   const digits = raw.replace(/\D/g, "");
   if (/^380\d{9}$/.test(digits)) return `+${digits}`;
@@ -41,6 +41,6 @@ export function isContactMethod(value: unknown): value is ContactMethod {
   return typeof value === "string" && (contactMethods as readonly string[]).includes(value);
 }
 
-/** Подія для попереднього заповнення форми з будь-якої кнопки на сторінці */
+/** Event for prefilling the form from any button on the page */
 export const LEAD_PREFILL_EVENT = "mz:lead-prefill";
 export type LeadPrefill = { topic?: LeadTopic; interest?: string };

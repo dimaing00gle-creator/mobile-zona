@@ -1,9 +1,9 @@
 /**
- * Увесь контент лендингу в одному місці.
- * Позначка «ЗАМІНИТИ» — тестові дані, які треба замінити на реальні перед запуском.
+ * All landing page content in one place.
+ * REPLACE marks placeholder data that must be swapped for real data before launch.
  *
- * Фото: Unsplash (вільна ліцензія https://unsplash.com/license).
- * Автори: 85mm.ca, Micah & Sammie Chaffin, Mockup Free, Igor Omilaev, Dagny Reese, Klim Musalimov, gomi,
+ * Photos: Unsplash (free license https://unsplash.com/license).
+ * Authors: 85mm.ca, Micah & Sammie Chaffin, Mockup Free, Igor Omilaev, Dagny Reese, Klim Musalimov, gomi,
  * Caleb George, Kelly Sikkema, Hugo Agut Tugal, Luis Villasmil, Xianjuan HU, Andrey Matveev.
  */
 
@@ -11,19 +11,19 @@ const unsplash = (id: string) => `https://images.unsplash.com/photo-${id}`;
 
 export const site = {
   name: "Mobile Zona",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mobilezona.ua", // ЗАМІНИТИ: реальний домен
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mobilezona.ua", // REPLACE: real domain
   title: "Mobile Zona — смартфони та аксесуари з живою консультацією",
   description:
     "Мережа магазинів смартфонів та аксесуарів Mobile Zona. Офіційна гарантія, розстрочка 0% і безкоштовна консультація. Залиште заявку — підберемо модель і зарезервуємо в найближчому магазині.",
-  phone: "+380 67 000 00 00", // ЗАМІНИТИ
-  email: "hello@mobilezona.ua", // ЗАМІНИТИ
+  phone: "+380 67 000 00 00", // REPLACE
+  email: "hello@mobilezona.ua", // REPLACE
   hotlineHours: "Щодня 9:00–21:00",
   socials: [
-    { label: "Instagram", href: "https://instagram.com/" }, // ЗАМІНИТИ
-    { label: "Telegram", href: "https://t.me/" }, // ЗАМІНИТИ
-    { label: "Facebook", href: "https://facebook.com/" }, // ЗАМІНИТИ
+    { label: "Instagram", href: "https://instagram.com/" }, // REPLACE
+    { label: "Telegram", href: "https://t.me/" }, // REPLACE
+    { label: "Facebook", href: "https://facebook.com/" }, // REPLACE
   ],
-  foundedYear: 2017, // ЗАМІНИТИ
+  foundedYear: 2017, // REPLACE
 };
 
 export const nav = [
@@ -34,7 +34,7 @@ export const nav = [
   { href: "#stores", label: "Магазини" },
 ];
 
-// Спільні тексти, що повторюються в кількох блоках
+// Shared copy reused across several blocks
 export const common = {
   cta: "Отримати консультацію",
   skipLink: "Перейти до змісту",
@@ -47,16 +47,16 @@ export const header = {
   mobileNavLabel: "Мобільна навігація",
   menuOpen: "Відкрити меню",
   menuClose: "Закрити меню",
-  // у мобільному меню після розділів — ще пункт контактів
+  // the mobile menu gets an extra Contacts item after the sections
   mobileExtra: { href: "#contacts", label: "Контакти" },
 };
 
 export const hero = {
   title: ["Смартфони", "та аксесуари"],
-  // останній рядок заголовка — акцентним шрифтом Tektur
+  // last line of the heading uses the Tektur accent font
   titleAccent: "без зайвих питань",
   lead: "Офіційна гарантія, перевірена техніка та консультація, яка справді допомагає обрати. Телефонуйте — підкажемо модель і перевіримо наявність у магазині.",
-  // власне фото: public/images/hero.jpg (1140×960, обрізане без тексту)
+  // own photo: public/images/hero.jpg (1140×960, cropped, no text)
   image: {
     src: "/images/hero.jpg",
     alt: "Роботизована рука тримає білий смартфон із потрійною камерою",
@@ -157,7 +157,7 @@ export const leadTopics = [
 
 export type LeadTopic = (typeof leadTopics)[number];
 
-// \n в описі — примусовий перенос рядка (діє лише на десктопі)
+// \n in the text forces a line break (desktop only)
 export const services = [
   {
     title: "Підбір смартфона",
@@ -197,7 +197,7 @@ export const services = [
   },
 ];
 
-// Текст на фото блоку послуг (лише десктоп): два речення — два рядки
+// Text over the services photo (desktop only): two sentences, two lines
 export const servicesAi = [
   "Ми активно використовуємо штучний інтелект у своїй роботі.",
   "Він допомагає нам працювати швидше й робити сервіс ще якіснішим.",
@@ -205,12 +205,12 @@ export const servicesAi = [
 
 export const servicesBlock = {
   title: "Більше, ніж просто покупка",
-  // власне фото: public/images/services-handshake.jpg (1200×678)
+  // own photo: public/images/services-handshake.jpg (1200×678)
   image: {
     src: "/images/services-handshake.jpg",
     alt: "Рукостискання руки робота й людської руки на світлому тлі",
   },
-  // робот без фону для списку послуг: public/images/services-robot-assistant.webp (235×300, прозорий)
+  // robot cut-out for the services list: public/images/services-robot-assistant.webp (235×300, transparent)
   robot: { src: "/images/services-robot-assistant.webp", width: 235, height: 300 },
   asideText: "Запишіться заздалегідь, і консультант чекатиме саме на вас",
   cta: { label: "Записатися на послугу", topic: "Підбір смартфона", interest: "Запис на послугу" },
@@ -241,7 +241,7 @@ export type Store = {
   phone: string;
 };
 
-// ЗАМІНИТИ: реальні адреси, графіки й телефони магазинів
+// REPLACE: real store addresses, hours and phone numbers
 export const stores: Store[] = [
   {
     id: "kyiv-khreshchatyk",
@@ -319,8 +319,8 @@ export const storeFinder = {
   mapTitle: (name: string, address: string) => `Карта: ${name}, ${address}`,
 } as const;
 
-// ЗАМІНИТИ: ПРИКЛАДИ відгуків для верстки. Перед публікацією замініть
-// на справжні відгуки клієнтів (наприклад, з Google Maps) — вигадані публікувати не можна.
+// REPLACE: SAMPLE reviews for layout only. Before launch, swap them for
+// real customer reviews (e.g. from Google Maps) — fabricated reviews must not be published.
 export const reviewsSummary = {
   rating: "4.9",
   count: "1 200+",
@@ -414,7 +414,7 @@ export const leadForm = {
   error: "Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте нам.",
   success: {
     title: (firstName: string) => `Дякуємо, ${firstName}!`,
-    // спосіб зв’язку в тексті: «через дзвінок», «через Telegram»
+    // contact method inside the sentence, e.g. "via call" or "via Telegram"
     text: (method: string) =>
       `Заявку отримано. Менеджер зв’яжеться з вами протягом 15 хвилин у робочий час — через ${method === "Дзвінок" ? "дзвінок" : method}.`,
     again: "Надіслати ще одну заявку",
@@ -431,12 +431,12 @@ export const footer = {
   privacy: "Політика конфіденційності",
 };
 
-// ЗАМІНИТИ: шаблон для верстки — фінальний текст має погодити юрист
+// REPLACE: layout template — the final text must be approved by a lawyer
 export const privacy = {
   title: "Політика конфіденційності",
   description: `Як ${site.name} обробляє персональні дані, залишені у формі заявки на сайті.`,
   intro: `${site.name} обробляє лише ті дані, які ви залишаєте у формі заявки: ім’я, номер телефону, обраний магазин і коментар. Ми використовуємо їх виключно для того, щоб зв’язатися з вами та надати консультацію.`,
-  // далі в абзаці — посилання на email
+  // the paragraph continues with an email link
   storage:
     "Дані не передаються третім особам, окрім сервісів, необхідних для обробки заявки, і зберігаються не довше, ніж потрібно для цієї мети. Ви можете будь-коли попросити видалити ваші дані, написавши на",
   law: "Обробка персональних даних здійснюється відповідно до Закону України «Про захист персональних даних».",

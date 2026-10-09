@@ -7,8 +7,8 @@ type Props = {
   children: ReactNode;
 };
 
-// Обгортка блоку з фото: один раз запускає ШІ-анімацію, коли блок з’являється на екрані.
-// Без JS атрибута немає, тож текст і фото видно одразу; самі ефекти — у CSS (лише десктоп).
+// Photo block wrapper: starts the AI animation once, when the block enters the viewport.
+// Without JS the attribute is absent, so text and photo show immediately; the effects live in CSS (desktop only).
 export function AiStage({ className, children }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 

@@ -1,6 +1,6 @@
 import type { ImageLoaderProps } from "next/image";
 
-/** Зображення Unsplash ресайзить їхній CDN (imgix): потрібна ширина, AVIF/WebP за підтримки браузера */
+/** Unsplash images are resized by their CDN (imgix): requested width, AVIF/WebP when the browser supports it */
 export default function imageLoader({ src, width, quality }: ImageLoaderProps) {
   if (!src.startsWith("https://images.unsplash.com/")) return src;
   const url = new URL(src);

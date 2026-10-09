@@ -4,7 +4,7 @@ import { Logo } from "../Logo";
 import styles from "./Footer.module.css";
 
 type Props = {
-  /** Префікс для якорів: на головній порожній, на інших сторінках «/», щоб посилання вели на головну */
+  /** Anchor prefix: empty on the home page, "/" on other pages so links lead back home */
   anchorBase?: "" | "/";
 };
 

@@ -9,11 +9,11 @@ type Props = LeadPrefill & {
   variant?: "accent" | "ghost" | "link";
   size?: "sm";
   className?: string;
-  /** Додаткова дія після кліку, наприклад закрити мобільне меню */
+  /** Extra action after the click, e.g. closing the mobile menu */
   onClick?: () => void;
 };
 
-/** Посилання на форму заявки, яке заодно передзаповнює тему та інтерес */
+/** Link to the lead form that also prefills the topic and interest */
 export function LeadButton({ topic, interest, children, variant = "accent", size, className, onClick }: Props) {
   const cls =
     variant === "link"

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-// ЗАМІНИТИ: шаблон для верстки — фінальний текст має погодити юрист (текст — у site.ts)
+// REPLACE: layout template — the final text must be approved by a lawyer (copy lives in site.ts)
 export default function Privacy() {
   return (
     <>

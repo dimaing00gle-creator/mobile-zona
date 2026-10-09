@@ -5,7 +5,7 @@ export const alt = `${site.name} — мережа магазинів смарт�
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Завантажує лише потрібні гліфи Onest (з кирилицею) для картинки соцмереж */
+/** Loads only the Onest glyphs (incl. Cyrillic) needed for the social image */
 async function loadFont(text: string, weight: number) {
   const css = await fetch(
     `https://fonts.googleapis.com/css2?family=Onest:wght@${weight}&text=${encodeURIComponent(text)}`,
@@ -25,7 +25,7 @@ export default async function OpengraphImage() {
   try {
     fonts = [{ name: "Onest", data: await loadFont(title + sub + brand + cta, 500), weight: 500 }];
   } catch {
-    // Без мережі — системний шрифт за замовчуванням
+    // Offline — fall back to the default system font
   }
 
   return new ImageResponse(

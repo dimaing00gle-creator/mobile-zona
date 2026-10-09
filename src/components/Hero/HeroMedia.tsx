@@ -6,7 +6,7 @@ import styles from "./Hero.module.css";
 
 type Props = { src: string; alt: string };
 
-/** Фонове фото першого екрана: паралакс від курсора (лише миша/тачпад, без «зменшеного руху») */
+/** First-screen background photo: cursor parallax (mouse/trackpad only, not with reduced motion) */
 export function HeroMedia({ src, alt }: Props) {
   const layer = useRef<HTMLDivElement>(null);
 
@@ -17,7 +17,7 @@ export function HeroMedia({ src, alt }: Props) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!finePointer || reduced) return;
 
-    // Ціль і поточне положення: плавно «доганяємо» курсор, щоб рух був м’яким
+    // Target and current position: ease towards the cursor so the motion stays soft
     let tx = 0;
     let ty = 0;
     let x = 0;

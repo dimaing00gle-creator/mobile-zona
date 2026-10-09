@@ -12,7 +12,7 @@ const onest = Onest({
   variable: "--font-onest",
 });
 
-// Акцентний технологічний шрифт для виділених слів у заголовках
+// Accent tech font for highlighted words in headings
 const tektur = Tektur({
   subsets: ["latin", "cyrillic"],
   weight: "400",

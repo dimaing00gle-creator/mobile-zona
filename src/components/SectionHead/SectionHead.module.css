@@ -1,4 +1,4 @@
-/* Шапка секції: лише заголовок по центру */
+/* Section head: centered heading only */
 .head {
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
 
 .head h2 {
   font-size: clamp(28px, 3.6vw, 48px);
-  /* Світліший відтінок поточного кольору — працює і в темній секції */
+  /* Lighter shade of the current color — works in the dark section too */
   color: color-mix(in srgb, currentColor 80%, transparent);
   max-width: 24ch;
   text-wrap: balance;

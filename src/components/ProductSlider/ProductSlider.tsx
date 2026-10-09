@@ -8,7 +8,7 @@ import { SectionHead } from "../SectionHead";
 import { ArrowLeft, ArrowRight } from "../icons";
 import styles from "./ProductSlider.module.css";
 
-/** Крок прокрутки — ширина картки разом із проміжком */
+/** Scroll step: card width plus the gap */
 function stepOf(track: HTMLElement) {
   const card = track.firstElementChild as HTMLElement | null;
   return card ? card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0") : 0;
@@ -17,7 +17,7 @@ function stepOf(track: HTMLElement) {
 export function ProductSlider() {
   const trackRef = useRef<HTMLUListElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  // Лише примітиви: React перемальовує слайдер, тільки коли значення справді змінилося
+  // Primitives only: React re-renders the slider only when a value actually changes
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const [current, setCurrent] = useState(1);
@@ -26,7 +26,7 @@ export function ProductSlider() {
     const el = trackRef.current;
     if (!el) return;
     const max = el.scrollWidth - el.clientWidth;
-    // Прогрес змінюється на кожному кадрі — пишемо його в CSS-змінну, без рендеру React
+    // Progress changes every frame — write it to a CSS variable, no React render
     barRef.current?.style.setProperty("--progress", String(max > 0 ? el.scrollLeft / max : 0));
     setAtStart(el.scrollLeft < 4);
     setAtEnd(el.scrollLeft > max - 4);
@@ -81,7 +81,7 @@ export function ProductSlider() {
       </div>
 
       <div className={`container ${styles.controls}`}>
-        {/* Лічильник лише візуальний: картки вже мають підписи «1 з 9», тож без aria-live */}
+        {/* The counter is visual only: cards already have "1 of 9" labels, so no aria-live */}
         <p className={styles.counter}>
           {pad2(current)} <span className="muted">/ {pad2(categories.length)}</span>
         </p>

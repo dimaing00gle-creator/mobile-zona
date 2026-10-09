@@ -1,4 +1,4 @@
-/* Заголовок блоку — акцентним шрифтом Tektur, як на головному екрані, трохи світліший */
+/* Block heading in the Tektur accent font, like the first screen, slightly lighter */
 .title {
   font-family: var(--font-accent);
   font-weight: 400;
@@ -6,28 +6,28 @@
   color: var(--ink-60);
 }
 
-/* Одна колонка по центру: фото, список послуг, під ним текст із кнопкою */
+/* Single centered column: photo, services list, then text with a button */
 .grid {
   display: grid;
-  /* відступ між списком послуг і текстом із кнопкою під ним */
+  /* gap between the services list and the text with a button below it */
   gap: clamp(36px, 4vw, 56px);
   max-width: 820px;
   margin-inline: auto;
 }
 
-/* Фото на всю ширину екрана не має давати горизонтального скролу */
+/* The full-width photo must not cause horizontal scrolling */
 .section {
   overflow-x: clip;
 }
 
-/* Заголовок і фото; відступ до списку такий самий, як у сітці */
+/* Heading and photo; gap to the list matches the grid gap */
 .stage {
   max-width: 820px;
   margin-inline: auto;
   margin-bottom: clamp(48px, 6vw, 80px);
 }
 
-/* Фото одразу під заголовком, на всю ширину колонки */
+/* Photo right under the heading, full column width */
 .media {
   position: relative;
   width: 100%;
@@ -46,14 +46,14 @@
   object-fit: cover;
 }
 
-/* Текст під заголовком показуємо лише на десктопі */
+/* Text under the heading is shown on desktop only */
 .note {
   display: none;
 }
 
-/* Десктоп: фото на всю ширину екрана, від верху секції до нижньої межі рамки, заголовок поверх нього */
+/* Desktop: full-width photo from the section top to the frame's bottom edge, heading on top of it */
 @media (min-width: 1200px) {
-  /* Фото «прилипає» під шапкою, а список послуг наїжджає на нього під час прокрутки */
+  /* The photo sticks under the header and the services list slides over it while scrolling */
   .stage {
     position: sticky;
     top: calc(var(--header-h) + var(--section-y));
@@ -64,11 +64,11 @@
     z-index: 1;
     padding-block: clamp(40px, 4vw, 64px);
   }
-  /* нижній відступ смуги вже дає частину простору — разом із секцією виходить --section-y, як в інших блоках */
+  /* the band's bottom padding already gives part of the space — together with the section it adds up to --section-y, like other blocks */
   .section {
     padding-bottom: calc(var(--section-y) - clamp(40px, 4vw, 64px));
   }
-  /* Напівпрозоре тло списку на всю ширину екрана — фото ледь проглядає крізь нього */
+  /* Semi-transparent full-width list background — the photo barely shows through */
   .grid::before {
     content: "";
     position: absolute;
@@ -85,7 +85,7 @@
     position: relative;
     z-index: 1;
   }
-  /* рамка лишається в потоці й тримає нижню межу фото на місці */
+  /* the frame stays in flow and keeps the photo's bottom edge in place */
   .media {
     position: static;
     overflow: visible;
@@ -98,11 +98,11 @@
     left: 50%;
     width: 100vw;
     transform: translateX(-50%);
-    /* clip обрізає фото, не створюючи окремої області прокрутки */
+    /* clip crops the photo without creating a separate scroll container */
     overflow: clip;
     background: var(--ink-05);
   }
-  /* Текст під заголовком: підтягуємо ближче до нього, відступ до фото — як у шапки секції */
+  /* Text under the heading: pulled closer to it; gap to the photo matches the section head */
   .note {
     position: relative;
     z-index: 1;
@@ -116,7 +116,7 @@
   }
 }
 
-/* ШІ-анімація фото й тексту: лише десктоп і лише якщо не вимкнено рух */
+/* AI animation for photo and text: desktop only and only when motion isn't reduced */
 .fx {
   display: none;
 }
@@ -132,7 +132,7 @@
     position: absolute;
   }
 
-  /* Вуаль: розмиття й сірість, яку «знімає» сканер */
+  /* Veil: blur and greyscale that the scanner "lifts" */
   .veil {
     inset: 0;
     -webkit-backdrop-filter: blur(14px) grayscale(1);
@@ -147,7 +147,7 @@
     animation: veil-off 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
-  /* Сітка точок, що з’являється за сканером і згасає */
+  /* Dot grid that appears behind the scanner and fades */
   .dots {
     inset: 0;
     background-image: radial-gradient(var(--ink-20) 1px, transparent 1.6px);
@@ -160,7 +160,7 @@
       fade-out 0.9s var(--ease) 1.5s forwards;
   }
 
-  /* Лінія сканера з лаймовим шлейфом */
+  /* Scanner line with a lime trail */
   .beam {
     top: 0;
     bottom: 0;
@@ -176,8 +176,8 @@
     animation: beam-run 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
-  /* Імпульс у точці рукостискання: у фото вона на 50% ширини й 59% висоти.
-     Фото масштабується через cover, тому зсув від центру — 9% від його фактичної висоти */
+  /* Pulse at the handshake point: in the photo it sits at 50% width and 59% height.
+     The photo scales via cover, so the offset from center is 9% of its rendered height */
   .pulse {
     left: 50%;
     top: calc(50% + 0.09 * max(100%, 56.5vw));
@@ -219,8 +219,8 @@
     animation-delay: 2s;
   }
 
-  /* «Рукостискання»: усе фото гойдається навколо точки потиску в ритмі імпульсу.
-     Збільшення на 3% ховає краї під час руху. Тимчасово — доки немає рук окремим шаром */
+  /* "Handshake": the whole photo sways around the grip point in time with the pulse.
+     A 3% zoom hides the edges while moving. Temporary until the hands are a separate layer */
   [data-fx] .img {
     transform: scale(1.03);
     transform-origin: 50% calc(50% + 0.09 * max(100%, 56.5vw));
@@ -232,7 +232,7 @@
     animation: shake-pulse 3.2s ease-in-out 1.3s infinite;
   }
 
-  /* Текст «пише ШІ»: слова проявляються по черзі, лаймовий курсор біжить попереду */
+  /* "AI typing" text: words appear one by one with a lime cursor running ahead */
   .word {
     position: relative;
     display: inline-block;
@@ -356,7 +356,7 @@
   }
 }
 
-/* Імпульс рухається разом із руками (лише по вертикалі — він у самій точці обертання) */
+/* The pulse moves with the hands (vertically only — it sits right at the pivot) */
 @keyframes shake-pulse {
   0%,
   40%,
@@ -406,7 +406,7 @@
   }
 }
 
-/* Робот-помічник ліворуч від списку послуг — лише десктоп */
+/* Robot helper left of the services list — desktop only */
 .robotRail {
   display: none;
 }
@@ -415,7 +415,7 @@
   .listWrap {
     position: relative;
   }
-  /* «Рейка» на висоту списку: робот прилипає по центру екрана, поки список прокручується */
+  /* A "rail" as tall as the list: the robot sticks to mid-screen while the list scrolls */
   .robotRail {
     position: absolute;
     top: 0;
@@ -428,7 +428,7 @@
     position: sticky;
     top: calc(50vh - 56px);
   }
-  /* висота робота ≈ висоті одного рядка списку */
+  /* robot height ≈ one list row */
   .robotImg {
     display: block;
     width: 88px;
@@ -444,7 +444,7 @@
   }
 }
 
-/* Пурхання: легке погойдування в повітрі, тінь «дихає» в такт */
+/* Hover: a gentle bob in the air, the shadow "breathes" in sync */
 @media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
   .robotImg {
     animation: robot-float 4.2s ease-in-out infinite;
@@ -501,7 +501,7 @@
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.1fr);
   gap: 8px 24px;
-  /* десктоп: номер і назва — по вертикальному центру рядка відносно опису */
+  /* desktop: number and title vertically centered against the description */
   align-items: center;
   padding-block: 28px;
   border-bottom: 1px solid var(--ink-12);
@@ -512,7 +512,7 @@
   padding-left: 8px;
 }
 
-/* примусовий перенос в описі послуги — лише на десктопі */
+/* forced line break in the service description — desktop only */
 @media (max-width: 1199px) {
   .br {
     display: none;
@@ -525,7 +525,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Планшет і телефон: номер над назвою, назва й опис — усе по центру рядка */
+/* Tablet and phone: number above the title, title and description all centered */
 @media (max-width: 1199px) {
   .item {
     grid-template-columns: minmax(0, 1fr);
@@ -533,7 +533,7 @@
     gap: 6px;
     text-align: center;
   }
-  /* зсув при наведенні лише для десктопної розкладки */
+  /* hover shift only for the desktop layout */
   .item:hover {
     padding-left: 0;
   }

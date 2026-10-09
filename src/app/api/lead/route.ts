@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { stores } from "@/content/site";
 import { isContactMethod, isLeadTopic, normalizeUaPhone, validateLead } from "@/lib/lead";
 
-// Простий захист від повторних відправлень: не більше 5 заявок з однієї IP за 10 хвилин
+// Simple flood protection: at most 5 leads per IP per 10 minutes
 const WINDOW_MS = 10 * 60 * 1000;
 const LIMIT = 5;
 const hits = new Map<string, number[]>();
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
   }
 
-  // Бот заповнив приховане поле — удаємо успіх, нічого не надсилаємо
+  // A bot filled the hidden field — pretend success, send nothing
   if (str(body.company, 200)) return NextResponse.json({ ok: true });
 
   const name = str(body.name, 80);

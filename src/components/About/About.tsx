@@ -4,10 +4,10 @@ import styles from "./About.module.css";
 export function About() {
   return (
     <section id="about" className="section theme-dark" aria-labelledby="about-title">
-      {/* Десктоп: доріжка прокрутки, вміст «прилипає», а переваги змінюють одна одну */}
+      {/* Desktop: scroll track, the content sticks and the values replace each other */}
       <div className={styles.track}>
         <div className={`container ${styles.pin}`}>
-          {/* заголовок прихований візуально, але лишається для SEO і скрінрідерів */}
+          {/* heading is visually hidden but kept for SEO and screen readers */}
           <h2 id="about-title" className="visually-hidden">
             {about.title}
           </h2>

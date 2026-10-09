@@ -6,7 +6,7 @@ import styles from "./Hero.module.css";
 export function Hero() {
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
-      {/* Фото — фоном усього першого екрана, з анімацією появи, відблиском і паралаксом */}
+      {/* Photo as the full first-screen background, with intro animation, sheen and parallax */}
       <HeroMedia src={hero.image.src} alt={hero.image.alt} />
 
       <div className={`container ${styles.inner}`}>

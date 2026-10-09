@@ -1,4 +1,4 @@
-/* текст по центру секції, без фото */
+/* text centered in the section, no photo */
 .copy {
   display: grid;
   gap: 20px;
@@ -14,7 +14,7 @@
   line-height: 1.55;
 }
 
-/* переваги — стовпчиком, кожна з нового рядка */
+/* values stacked in a column, one per line */
 .values {
   display: grid;
   gap: 24px;
@@ -23,7 +23,7 @@
   border-top: 1px solid var(--ink-12);
 }
 
-/* лінія між перевагами — як над ними */
+/* divider between values, same as above them */
 .values > li + li {
   padding-top: 24px;
   border-top: 1px solid var(--ink-12);
@@ -33,29 +33,29 @@
   margin-bottom: 4px;
 }
 
-/* \n у тексті переваги — примусовий перенос рядка */
+/* \n in a value's text forces a line break */
 .valueText {
   white-space: pre-line;
 }
 
 /*
- * Десктоп: блок «прилипає» під шапкою, і за один екран прокрутки
- * переваги по черзі наїжджають одна на одну. Лише де браузер підтримує
- * анімації від прокрутки і користувач не просив зменшити рух;
- * інакше — звичайний список вище.
+ * Desktop: the block sticks under the header, and over one screen of scrolling
+ * the values slide over one another in turn. Only where the browser supports
+ * scroll-driven animations and the user hasn't asked for reduced motion;
+ * otherwise it's the plain list above.
  */
 @media (min-width: 1200px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
     .track {
-      /* звідки «прилипає» вміст і скільки прокрутки триває ефект */
+      /* where the content sticks and how much scrolling the effect lasts */
       --pin-top: calc(var(--header-h) + var(--section-y));
       --pin-run: 100vh;
-      /* початок ефекту на шкалі cover: момент, коли вміст прилип */
+      /* effect start on the cover range: the moment the content sticks */
       --pin-start: calc(100vh - var(--pin-top));
       view-timeline: --about;
       view-timeline-inset: 0;
     }
-    /* запас прокрутки — саме вмістом, бо sticky не заходить у padding батька */
+    /* scroll room comes from the content itself, since sticky doesn't enter the parent's padding */
     .track::after {
       content: "";
       display: block;
@@ -67,7 +67,7 @@
       top: var(--pin-top);
     }
 
-    /* усі переваги в одній клітинці, кожна зі своєю лінією згори */
+    /* all values in one grid cell, each with its own top line */
     .values {
       padding-top: 0;
       border-top: 0;
@@ -78,11 +78,11 @@
       grid-area: 1 / 1;
       padding-top: 32px;
       border-top: 1px solid var(--ink-12);
-      /* фон темної секції — щоб пункт перекривав попередній */
+      /* dark section background so an item covers the previous one */
       background: var(--ink);
     }
 
-    /* 1-ша зникає, коли наїжджає 2-га; 2-га — коли наїжджає 3-тя */
+    /* 1st fades as the 2nd slides in; 2nd fades as the 3rd does */
     .values > li:nth-child(1) {
       animation: about-out linear both;
       animation-timeline: --about;
@@ -111,7 +111,7 @@
   }
 }
 
-/* наступна перевага виїжджає знизу й накриває попередню */
+/* the next value slides up from below and covers the previous one */
 @keyframes about-in {
   from {
     translate: 0 100%;
@@ -121,7 +121,7 @@
   }
 }
 
-/* попередня тим часом тане */
+/* meanwhile the previous one fades out */
 @keyframes about-out {
   to {
     opacity: 0;

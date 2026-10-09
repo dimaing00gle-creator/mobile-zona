@@ -1,4 +1,4 @@
-/* Картки примикають до нижнього краю секції */
+/* Cards sit flush with the section's bottom edge */
 .section {
   padding-bottom: 0;
 }
@@ -94,7 +94,7 @@
   font-weight: 500;
 }
 
-/* На планшеті й мобільному — горизонтальна стрічка з прокруткою, лише 3 картки */
+/* On tablet and mobile: a horizontal scrolling strip, only 3 cards */
 @media (max-width: 1199px) {
   .list {
     grid-template-columns: none;

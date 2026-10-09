@@ -5,7 +5,7 @@ import { common } from "@/content/site";
 import { LeadButton } from "../LeadButton";
 import styles from "./MobileCta.module.css";
 
-/** Закріплена кнопка заявки на мобільних: з’являється після першого екрана й ховається біля форми */
+/** Sticky lead button on mobile: appears after the first screen and hides near the form */
 export function MobileCta() {
   const [visible, setVisible] = useState(false);
 
@@ -30,7 +30,7 @@ export function MobileCta() {
   }, []);
 
   return (
-    // inert: прихована кнопка не отримує фокус і не читається скрінрідером
+    // inert: the hidden button can't be focused or read by screen readers
     <div className={`${styles.bar} ${visible ? styles.visible : ""}`} inert={!visible}>
       <LeadButton className={styles.btn}>{common.cta}</LeadButton>
     </div>

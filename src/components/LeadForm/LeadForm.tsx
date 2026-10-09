@@ -15,7 +15,7 @@ import styles from "./LeadForm.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-/** Маска +380 XX XXX XX XX */
+/** Mask +380 XX XXX XX XX */
 function formatPhone(raw: string) {
   let d = raw.replace(/\D/g, "");
   if (d.startsWith("0")) d = "38" + d;
@@ -70,7 +70,7 @@ export function LeadForm() {
       });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("success");
-      // Подія конверсії для GA4 / GTM, якщо їх підключено
+      // Conversion event for GA4 / GTM, if connected
       (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "generate_lead", lead_topic: topic });
     } catch {
       setStatus("error");
@@ -202,7 +202,7 @@ export function LeadForm() {
         />
       </Field>
 
-      {/* Пастка для ботів */}
+      {/* Honeypot for bots */}
       <div className={styles.hp} aria-hidden="true">
         <label>
           {t.honeypot}

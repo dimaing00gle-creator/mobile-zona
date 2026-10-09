@@ -1,5 +1,5 @@
 .viewport {
-  /* Карусель виходить за праву межу контейнера, як «натяк» на продовження */
+  /* The carousel bleeds past the container's right edge as a hint there's more */
   padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
 }
 
@@ -102,7 +102,7 @@
   position: absolute;
   inset: 0;
   background: var(--ink);
-  /* --progress (0…1) задає компонент під час прокрутки; мінімум 12 % видно завжди */
+  /* --progress (0…1) is set by the component on scroll; at least 12% is always visible */
   transform: scaleX(calc(0.12 + var(--progress, 0) * 0.88));
   transform-origin: left;
   transition: transform 0.2s linear;

@@ -114,7 +114,7 @@
   width: 100%;
   height: 100%;
   border: 0;
-  /* Приглушена карта, щоб не сперечалася з палітрою сайту */
+  /* Muted map so it doesn't clash with the site palette */
   filter: grayscale(1) contrast(0.95) brightness(1.02);
 }
 

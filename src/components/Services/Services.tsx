@@ -10,25 +10,25 @@ import styles from "./Services.module.css";
 const { image, robot, cta } = servicesBlock;
 
 export function Services() {
-  // Наскрізний номер слова — для поступової появи тексту «як пише ШІ»
+  // Running word index for the "AI typing" text reveal
   let word = 0;
   const lastWord = servicesAi.join(" ").split(" ").length - 1;
 
   return (
     <section id="services" className={`section ${styles.section}`} aria-labelledby="services-title">
       <div className="container">
-        {/* На десктопі фото — фоном під заголовком на всю ширину екрана, з ШІ-анімацією */}
+        {/* On desktop the photo is a full-width background under the heading, with the AI animation */}
         <AiStage className={styles.stage}>
           <SectionHead
             id="services-title"
             title={<span className={styles.title}>{servicesBlock.title}</span>}
           />
 
-          {/* Текст під заголовком, поверх фото — лише десктоп */}
+          {/* Text under the heading, over the photo — desktop only */}
           <p className={styles.note}>
             {servicesAi.map((line, k) => (
               <Fragment key={line}>
-                {/* пробіл між реченнями — для пошуковиків і скрінрідерів */}
+                {/* space between sentences for search engines and screen readers */}
                 {k > 0 && " "}
                 <span>
                   {line.split(" ").map((w, j) => {
@@ -61,7 +61,7 @@ export function Services() {
                 className={styles.img}
               />
 
-              {/* Шари анімації: вуаль, сітка точок, лінія сканера, імпульс у рукостисканні */}
+              {/* Animation layers: veil, dot grid, scanner line, pulse at the handshake */}
               <div className={styles.fx} aria-hidden="true">
                 <span className={styles.veil} />
                 <span className={styles.dots} />
@@ -79,7 +79,7 @@ export function Services() {
 
         <div className={styles.grid}>
           <div className={styles.listWrap}>
-            {/* Робот-помічник ліворуч від списку — лише десктоп: тримається на місці й пурхає */}
+            {/* Robot helper left of the list — desktop only: stays in place and hovers */}
             <div className={styles.robotRail} aria-hidden="true">
               <div className={styles.robot}>
                 <Image
@@ -102,7 +102,7 @@ export function Services() {
                   <p className="muted">
                     {s.text.split("\n").map((part, k) => (
                       <Fragment key={k}>
-                        {/* пробіл перед br — щоб без переносу (планшет, телефон) слова не злипались */}
+                        {/* space before br so words don't run together when the break is hidden (tablet, phone) */}
                         {k > 0 && (
                           <>
                             {" "}

@@ -29,10 +29,10 @@ Without the Telegram variables, leads are only logged to the server console in d
 
 ## Editing content
 
-All copy, prices, store addresses and reviews live in `src/content/site.ts`. Placeholder data is marked with a `ЗАМІНИТИ` (“replace”) comment.
+All copy, prices, store addresses and reviews live in `src/content/site.ts`. Placeholder data is marked with a `REPLACE` comment.
 The reviews are layout samples only and must be replaced with real ones before launch.
 
-The site itself is Ukrainian-only.
+The site itself is Ukrainian-only; code comments, commit messages and docs are in English.
 
 ## Project structure
 

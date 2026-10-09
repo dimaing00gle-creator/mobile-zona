@@ -3,7 +3,7 @@ import { compactPhone } from "@/lib/format";
 
 const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-/** Структуровані дані schema.org для пошукових систем */
+/** schema.org structured data for search engines */
 export function JsonLd() {
   const orgId = `${site.url}/#organization`;
 
@@ -66,7 +66,7 @@ export function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      // Дані формуються на сервері з власного контенту, без введення користувача
+      // Built on the server from our own content, no user input
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );

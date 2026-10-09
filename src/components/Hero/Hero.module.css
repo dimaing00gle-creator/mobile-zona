@@ -1,5 +1,5 @@
-/* Перший екран на всю висоту вікна: фото — фоном, текст і кнопка — по центру поверх нього;
-   шапка прозора і теж лежить поверх фото */
+/* Full-height first screen: photo as background, text and button centered on top;
+   the header is transparent and also sits over the photo */
 .hero {
   position: relative;
   display: flex;
@@ -12,7 +12,7 @@
 .media {
   position: absolute;
   inset: 0;
-  /* верх і низ фото м’яко розчиняються у фоні сторінки: під шапкою тло чисте, тож вона добре читається */
+  /* top and bottom of the photo fade into the page background: the area under the header stays clean, so it reads well */
   -webkit-mask-image: linear-gradient(
     180deg,
     transparent var(--header-h),
@@ -29,7 +29,7 @@
   );
 }
 
-/* Світла вуаль кольору фону: рівний шар по всьому фото й щільніша пляма в центрі під текстом */
+/* Light veil in the background color: an even layer over the photo and a denser spot in the center under the text */
 .media::after {
   content: "";
   position: absolute;
@@ -39,7 +39,7 @@
     var(--bg-50);
 }
 
-/* Шар фото трохи більший за екран, щоб під час паралаксу від курсора не було видно країв */
+/* Photo layer slightly larger than the screen so edges never show during cursor parallax */
 .layer {
   position: absolute;
   inset: -32px;
@@ -47,7 +47,7 @@
   will-change: transform;
 }
 
-/* Поява з розмиття й збільшення, потім повільне «дихання» кадру */
+/* Intro from blur and zoom, then a slow "breathing" of the frame */
 .img {
   object-fit: cover;
   object-position: 45% 30%;
@@ -78,7 +78,7 @@
   }
 }
 
-/* Відблиск: світла смуга раз на кілька секунд пробігає по металу телефона */
+/* Sheen: a light streak runs across the phone's metal every few seconds */
 .sheen {
   position: absolute;
   inset: 0 auto 0 0;
@@ -100,7 +100,7 @@
   }
 }
 
-/* Текст з’являється знизу по черзі: заголовок, підзаголовок, кнопка */
+/* Text rises in sequence: heading, subheading, button */
 .inner > * {
   animation: hero-up 0.9s var(--ease) both;
 }
@@ -133,7 +133,7 @@
   font-size: clamp(44px, 6vw, 92px);
 }
 
-/* Акцентний рядок: технологічний шрифт Tektur зі зрізаними кутами */
+/* Accent line: Tektur tech font with chamfered corners */
 .accent {
   font-family: var(--font-accent);
   font-style: normal;
@@ -165,14 +165,14 @@
   }
 }
 
-/* Вузькі телефони: кегль під ширину екрана, щоб заголовок лишався у три рядки */
+/* Narrow phones: font size follows screen width so the heading stays on three lines */
 @media (max-width: 479px) {
   .title {
     font-size: clamp(30px, 9.4vw, 44px);
   }
 }
 
-/* Паралакс при прокрутці: фото відстає, текст піднімається й тане (лише де браузер це підтримує) */
+/* Scroll parallax: the photo lags, the text rises and fades (only where the browser supports it) */
 @supports ((animation-timeline: view()) and (animation-range: entry)) {
   .hero {
     view-timeline: --hero;
@@ -202,7 +202,7 @@
   }
 }
 
-/* Без анімацій для тих, хто вимкнув рух у системі */
+/* No animations for users who turned off motion in their OS */
 @media (prefers-reduced-motion: reduce) {
   .img,
   .media,

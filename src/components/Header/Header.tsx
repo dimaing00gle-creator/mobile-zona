@@ -14,7 +14,7 @@ export function Header() {
   const [pastHero, setPastHero] = useState(false);
 
   useEffect(() => {
-    // Кнопка в хедері стає акцентною, коли другий блок доходить до середини екрана
+    // The header button turns accent once the second block reaches mid-screen
     const second = document.getElementById("catalog");
     const onScroll = () => {
       setScrolled(window.scrollY > 8);
@@ -31,12 +31,12 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    // Поки відкрите меню, сторінка під ним не прокручується
+    // While the menu is open, the page underneath doesn't scroll
     document.body.style.overflow = "hidden";
     getLenis()?.stop();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    // Прокрутку повертаємо і при закритті меню, і якщо хедер зникне з відкритим меню
+    // Restore scrolling when the menu closes or the header unmounts with the menu open
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
@@ -44,7 +44,7 @@ export function Header() {
     };
   }, [open]);
 
-  // Lenis для переходу за якорем вмикає SmoothScroll, тут лише закриваємо меню
+  // SmoothScroll restarts Lenis for anchor jumps; here we only close the menu
   const closeMenu = () => setOpen(false);
 
   return (

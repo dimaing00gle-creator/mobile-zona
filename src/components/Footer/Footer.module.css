@@ -92,7 +92,7 @@
     grid-template-columns: 1fr 1fr;
   }
   .footer {
-    padding-bottom: 104px; /* місце під мобільну кнопку заявки */
+    padding-bottom: 104px; /* room for the mobile lead button */
   }
 }
 

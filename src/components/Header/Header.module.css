@@ -71,7 +71,7 @@
     box-shadow 0.3s var(--ease);
 }
 
-/* Приглушена кнопка на головному екрані, щоб не конкурувати з CTA в Hero */
+/* Muted button on the first screen so it doesn't compete with the Hero CTA */
 .actions .ctaQuiet {
   background: transparent;
   box-shadow: inset 0 0 0 1px var(--ink-20);
@@ -149,7 +149,7 @@
   margin-top: 32px;
 }
 
-/* кнопка заявки під телефоном і графіком */
+/* lead button below the phone number and hours */
 .menuFoot > :last-child {
   margin-top: 12px;
 }
