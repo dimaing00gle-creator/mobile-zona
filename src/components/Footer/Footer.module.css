@@ -1,0 +1,103 @@
+.footer {
+  padding-top: clamp(56px, 7vw, 96px);
+  padding-bottom: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: 40px 32px;
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+
+.brand {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  max-width: 320px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--ink-60);
+  margin-bottom: 16px;
+}
+
+.links {
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.links a {
+  transition: color 0.2s var(--ease);
+}
+
+.links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--ink-12);
+}
+
+.motto {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.dash {
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 13px;
+  color: var(--ink-60);
+}
+
+.legal a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer {
+    padding-bottom: 104px; /* місце під мобільну кнопку заявки */
+  }
+}
+
+@media (max-width: 479px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

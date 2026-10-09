@@ -1,0 +1,129 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.tab {
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid var(--ink-20);
+  font-size: 15px;
+  transition:
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+
+.tab:hover {
+  border-color: var(--ink);
+}
+
+.tab[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: stretch;
+}
+
+.list {
+  border-top: 1px solid var(--ink-12);
+}
+
+.store {
+  position: relative;
+  padding: 24px 0 24px 20px;
+  border-bottom: 1px solid var(--ink-12);
+}
+
+.store::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 28px;
+  bottom: 28px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s var(--ease);
+}
+
+.active::before {
+  transform: scaleY(1);
+}
+
+.select {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+}
+
+.select span {
+  font-size: 14px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--ink-20);
+  padding-bottom: 2px;
+}
+
+.links a:hover {
+  border-color: currentColor;
+}
+
+.note {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding-top: 32px;
+}
+
+.map {
+  position: relative;
+  min-height: 460px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink-05);
+}
+
+.map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Приглушена карта, щоб не сперечалася з палітрою сайту */
+  filter: grayscale(1) contrast(0.95) brightness(1.02);
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .map {
+    min-height: 320px;
+    order: -1;
+  }
+}

@@ -1,0 +1,29 @@
+.bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+    transform: translateY(110%);
+    transition: transform 0.4s var(--ease);
+    pointer-events: none;
+  }
+
+  .visible {
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .btn {
+    width: 100%;
+    box-shadow: 0 8px 24px rgb(29 29 31 / 0.12);
+  }
+}

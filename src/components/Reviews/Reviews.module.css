@@ -1,0 +1,123 @@
+/* Картки примикають до нижнього краю секції */
+.section {
+  padding-bottom: 0;
+}
+
+.summary {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(44px, 4.4vw, 64px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.summary a {
+  margin-top: 8px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.card figure {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(24px, 2.6vw, 36px);
+  border: 1px solid var(--ink-12);
+  border-radius: var(--radius);
+  transition: border-color 0.3s var(--ease);
+}
+
+.card:hover figure {
+  border-color: var(--ink-20);
+}
+
+.cardStars {
+  display: flex;
+  gap: 2px;
+}
+
+.quote {
+  flex: 1;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ink-12);
+}
+
+.author > span:last-child {
+  display: grid;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.author strong {
+  font-weight: 500;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink-05);
+  font-weight: 500;
+}
+
+/* На планшеті й мобільному — горизонтальна стрічка з прокруткою, лише 3 картки */
+@media (max-width: 1199px) {
+  .list {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 42vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+  .card {
+    scroll-snap-align: start;
+  }
+  .card:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .list {
+    grid-auto-columns: 84vw;
+  }
+}

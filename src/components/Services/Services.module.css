@@ -1,0 +1,549 @@
+/* Заголовок блоку — акцентним шрифтом Tektur, як на головному екрані, трохи світліший */
+.title {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--ink-60);
+}
+
+/* Одна колонка по центру: фото, список послуг, під ним текст із кнопкою */
+.grid {
+  display: grid;
+  /* відступ між списком послуг і текстом із кнопкою під ним */
+  gap: clamp(36px, 4vw, 56px);
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+/* Фото на всю ширину екрана не має давати горизонтального скролу */
+.section {
+  overflow-x: clip;
+}
+
+/* Заголовок і фото; відступ до списку такий самий, як у сітці */
+.stage {
+  max-width: 820px;
+  margin-inline: auto;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+/* Фото одразу під заголовком, на всю ширину колонки */
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1200 / 678;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink-05);
+}
+
+.bleed {
+  position: absolute;
+  inset: 0;
+}
+
+.img {
+  object-fit: cover;
+}
+
+/* Текст під заголовком показуємо лише на десктопі */
+.note {
+  display: none;
+}
+
+/* Десктоп: фото на всю ширину екрана, від верху секції до нижньої межі рамки, заголовок поверх нього */
+@media (min-width: 1200px) {
+  /* Фото «прилипає» під шапкою, а список послуг наїжджає на нього під час прокрутки */
+  .stage {
+    position: sticky;
+    top: calc(var(--header-h) + var(--section-y));
+    z-index: 0;
+  }
+  .grid {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(40px, 4vw, 64px);
+  }
+  /* нижній відступ смуги вже дає частину простору — разом із секцією виходить --section-y, як в інших блоках */
+  .section {
+    padding-bottom: calc(var(--section-y) - clamp(40px, 4vw, 64px));
+  }
+  /* Напівпрозоре тло списку на всю ширину екрана — фото ледь проглядає крізь нього */
+  .grid::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: 50%;
+    width: 100vw;
+    translate: -50% 0;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .stage > :first-child {
+    position: relative;
+    z-index: 1;
+  }
+  /* рамка лишається в потоці й тримає нижню межу фото на місці */
+  .media {
+    position: static;
+    overflow: visible;
+    border-radius: 0;
+    background: none;
+  }
+  .bleed {
+    top: calc(-1 * var(--section-y));
+    right: auto;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    /* clip обрізає фото, не створюючи окремої області прокрутки */
+    overflow: clip;
+    background: var(--ink-05);
+  }
+  /* Текст під заголовком: підтягуємо ближче до нього, відступ до фото — як у шапки секції */
+  .note {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 4px;
+    margin: calc(24px - clamp(40px, 5vw, 72px)) auto clamp(40px, 5vw, 72px);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.45;
+    text-align: center;
+  }
+}
+
+/* ШІ-анімація фото й тексту: лише десктоп і лише якщо не вимкнено рух */
+.fx {
+  display: none;
+}
+
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+  .fx {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+  }
+  .fx > span {
+    position: absolute;
+  }
+
+  /* Вуаль: розмиття й сірість, яку «знімає» сканер */
+  .veil {
+    inset: 0;
+    -webkit-backdrop-filter: blur(14px) grayscale(1);
+    backdrop-filter: blur(14px) grayscale(1);
+    background: var(--bg-20);
+    opacity: 0;
+  }
+  [data-fx] .veil {
+    opacity: 1;
+  }
+  [data-fx="on"] .veil {
+    animation: veil-off 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  /* Сітка точок, що з’являється за сканером і згасає */
+  .dots {
+    inset: 0;
+    background-image: radial-gradient(var(--ink-20) 1px, transparent 1.6px);
+    background-size: 22px 22px;
+    opacity: 0;
+  }
+  [data-fx="on"] .dots {
+    animation:
+      dots-in 1.6s cubic-bezier(0.65, 0, 0.35, 1) both,
+      fade-out 0.9s var(--ease) 1.5s forwards;
+  }
+
+  /* Лінія сканера з лаймовим шлейфом */
+  .beam {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    margin-left: -140px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent));
+    border-right: 2px solid var(--accent);
+    box-shadow: 6px 0 24px var(--accent);
+    opacity: 0;
+  }
+  [data-fx="on"] .beam {
+    animation: beam-run 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  /* Імпульс у точці рукостискання: у фото вона на 50% ширини й 59% висоти.
+     Фото масштабується через cover, тому зсув від центру — 9% від його фактичної висоти */
+  .pulse {
+    left: 50%;
+    top: calc(50% + 0.09 * max(100%, 56.5vw));
+    width: 0;
+    height: 0;
+  }
+  .core,
+  .ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    translate: -50% -50%;
+    opacity: 0;
+  }
+  .core {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 85%, transparent), transparent 65%);
+  }
+  .ring {
+    width: 90px;
+    height: 90px;
+    border: 2px solid var(--accent);
+    box-shadow:
+      0 0 18px var(--accent),
+      inset 0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  [data-fx="on"] .core {
+    animation: core-breathe 3.2s ease-in-out 1.3s infinite;
+  }
+  [data-fx="on"] .ring {
+    animation: ring-out 3.2s cubic-bezier(0.22, 1, 0.36, 1) 1.3s infinite;
+  }
+  [data-fx="on"] .ring:nth-child(3) {
+    animation-delay: 1.65s;
+  }
+  [data-fx="on"] .ring:nth-child(4) {
+    animation-delay: 2s;
+  }
+
+  /* «Рукостискання»: усе фото гойдається навколо точки потиску в ритмі імпульсу.
+     Збільшення на 3% ховає краї під час руху. Тимчасово — доки немає рук окремим шаром */
+  [data-fx] .img {
+    transform: scale(1.03);
+    transform-origin: 50% calc(50% + 0.09 * max(100%, 56.5vw));
+  }
+  [data-fx="on"] .img {
+    animation: shake-photo 3.2s ease-in-out 1.3s infinite;
+  }
+  [data-fx="on"] .pulse {
+    animation: shake-pulse 3.2s ease-in-out 1.3s infinite;
+  }
+
+  /* Текст «пише ШІ»: слова проявляються по черзі, лаймовий курсор біжить попереду */
+  .word {
+    position: relative;
+    display: inline-block;
+  }
+  [data-fx] .word {
+    opacity: 0;
+  }
+  [data-fx="on"] .word {
+    animation: word-in 0.5s var(--ease) calc(600ms + var(--i) * 75ms) forwards;
+  }
+  .word::after {
+    content: "";
+    position: absolute;
+    top: 0.18em;
+    bottom: 0.12em;
+    right: -6px;
+    width: 3px;
+    border-radius: 1px;
+    background: var(--accent);
+    opacity: 0;
+  }
+  [data-fx="on"] .word::after {
+    animation: caret 75ms steps(1) calc(600ms + var(--i) * 75ms);
+  }
+  [data-fx="on"] .word[data-last]::after {
+    animation: caret-blink 0.9s steps(1) calc(600ms + var(--i) * 75ms) 4;
+  }
+}
+
+@keyframes veil-off {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+@keyframes dots-in {
+  from {
+    opacity: 1;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes beam-run {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(100vw + 140px));
+  }
+}
+
+@keyframes core-breathe {
+  0% {
+    opacity: 0;
+    scale: 0.3;
+  }
+  18% {
+    opacity: 1;
+    scale: 1;
+  }
+  60%,
+  100% {
+    opacity: 0.25;
+    scale: 0.8;
+  }
+}
+
+@keyframes ring-out {
+  0% {
+    opacity: 0;
+    scale: 0.3;
+  }
+  10% {
+    opacity: 1;
+  }
+  65%,
+  100% {
+    opacity: 0;
+    scale: 3.4;
+  }
+}
+
+@keyframes shake-photo {
+  0%,
+  40%,
+  100% {
+    transform: scale(1.03);
+  }
+  7% {
+    transform: scale(1.03) translateY(-5px) rotate(-0.5deg);
+  }
+  15% {
+    transform: scale(1.03) translateY(4px) rotate(0.4deg);
+  }
+  23% {
+    transform: scale(1.03) translateY(-3px) rotate(-0.25deg);
+  }
+  31% {
+    transform: scale(1.03) translateY(1.5px) rotate(0.1deg);
+  }
+}
+
+/* Імпульс рухається разом із руками (лише по вертикалі — він у самій точці обертання) */
+@keyframes shake-pulse {
+  0%,
+  40%,
+  100% {
+    transform: none;
+  }
+  7% {
+    transform: translateY(-5px);
+  }
+  15% {
+    transform: translateY(4px);
+  }
+  23% {
+    transform: translateY(-3px);
+  }
+  31% {
+    transform: translateY(1.5px);
+  }
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes caret-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Робот-помічник ліворуч від списку послуг — лише десктоп */
+.robotRail {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .listWrap {
+    position: relative;
+  }
+  /* «Рейка» на висоту списку: робот прилипає по центру екрана, поки список прокручується */
+  .robotRail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(100% + clamp(32px, 4vw, 64px));
+    display: block;
+    width: 88px;
+  }
+  .robot {
+    position: sticky;
+    top: calc(50vh - 56px);
+  }
+  /* висота робота ≈ висоті одного рядка списку */
+  .robotImg {
+    display: block;
+    width: 88px;
+    height: auto;
+  }
+  .robotShadow {
+    display: block;
+    width: 60px;
+    height: 11px;
+    margin: 10px auto 0;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--ink-20), transparent);
+  }
+}
+
+/* Пурхання: легке погойдування в повітрі, тінь «дихає» в такт */
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+  .robotImg {
+    animation: robot-float 4.2s ease-in-out infinite;
+  }
+  .robotShadow {
+    animation: robot-shadow 4.2s ease-in-out infinite;
+  }
+}
+
+@keyframes robot-float {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-2deg);
+  }
+  25% {
+    transform: translate(3px, -7px) rotate(1deg);
+  }
+  50% {
+    transform: translate(0, -11px) rotate(2.5deg);
+  }
+  75% {
+    transform: translate(-3px, -5px) rotate(0deg);
+  }
+}
+
+@keyframes robot-shadow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7);
+    opacity: 0.55;
+  }
+}
+
+.aside {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+  text-align: center;
+}
+
+.aside p {
+  max-width: 34ch;
+}
+
+.list {
+  border-top: 1px solid var(--ink-12);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 8px 24px;
+  /* десктоп: номер і назва — по вертикальному центру рядка відносно опису */
+  align-items: center;
+  padding-block: 28px;
+  border-bottom: 1px solid var(--ink-12);
+  transition: padding-left 0.35s var(--ease);
+}
+
+.item:hover {
+  padding-left: 8px;
+}
+
+/* примусовий перенос в описі послуги — лише на десктопі */
+@media (max-width: 1199px) {
+  .br {
+    display: none;
+  }
+}
+
+.num {
+  font-size: 14px;
+  color: var(--ink-60);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Планшет і телефон: номер над назвою, назва й опис — усе по центру рядка */
+@media (max-width: 1199px) {
+  .item {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+  /* зсув при наведенні лише для десктопної розкладки */
+  .item:hover {
+    padding-left: 0;
+  }
+  .item p {
+    max-width: 46ch;
+  }
+}
+
+@media (max-width: 767px) {
+  .item {
+    padding-block: 22px;
+  }
+}

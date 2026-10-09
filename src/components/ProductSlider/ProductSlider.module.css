@@ -1,0 +1,152 @@
+.viewport {
+  /* Карусель виходить за праву межу контейнера, як «натяк» на продовження */
+  padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+}
+
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(260px, 29vw, 400px);
+  column-gap: clamp(16px, 2vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  padding-right: var(--gutter);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline-offset: 6px;
+}
+
+.card {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--ink-05);
+}
+
+.img {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+
+.card:hover .img {
+  transform: scale(1.04);
+}
+
+.num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--bg-70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  letter-spacing: 0.16em;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 20px;
+  flex: 1;
+}
+
+.title {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+
+.caption {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.counter {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.bar {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--ink-12);
+}
+
+.bar span {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  /* --progress (0…1) задає компонент під час прокрутки; мінімум 12 % видно завжди */
+  transform: scaleX(calc(0.12 + var(--progress, 0) * 0.88));
+  transform-origin: left;
+  transition: transform 0.2s linear;
+}
+
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrows button {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--ink-20);
+  transition:
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    opacity 0.25s var(--ease);
+}
+
+.arrows button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.arrows button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 1199px) {
+  .track {
+    grid-auto-columns: clamp(260px, 42vw, 400px);
+  }
+}
+
+@media (max-width: 767px) {
+  .track {
+    grid-auto-columns: 78vw;
+  }
+  .arrows {
+    display: none;
+  }
+}

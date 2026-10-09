@@ -1,0 +1,129 @@
+/* текст по центру секції, без фото */
+.copy {
+  display: grid;
+  gap: 20px;
+  max-width: 960px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.text {
+  max-width: 760px;
+  margin-inline: auto;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+}
+
+/* переваги — стовпчиком, кожна з нового рядка */
+.values {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink-12);
+}
+
+/* лінія між перевагами — як над ними */
+.values > li + li {
+  padding-top: 24px;
+  border-top: 1px solid var(--ink-12);
+}
+
+.valueTitle {
+  margin-bottom: 4px;
+}
+
+/* \n у тексті переваги — примусовий перенос рядка */
+.valueText {
+  white-space: pre-line;
+}
+
+/*
+ * Десктоп: блок «прилипає» під шапкою, і за один екран прокрутки
+ * переваги по черзі наїжджають одна на одну. Лише де браузер підтримує
+ * анімації від прокрутки і користувач не просив зменшити рух;
+ * інакше — звичайний список вище.
+ */
+@media (min-width: 1200px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .track {
+      /* звідки «прилипає» вміст і скільки прокрутки триває ефект */
+      --pin-top: calc(var(--header-h) + var(--section-y));
+      --pin-run: 100vh;
+      /* початок ефекту на шкалі cover: момент, коли вміст прилип */
+      --pin-start: calc(100vh - var(--pin-top));
+      view-timeline: --about;
+      view-timeline-inset: 0;
+    }
+    /* запас прокрутки — саме вмістом, бо sticky не заходить у padding батька */
+    .track::after {
+      content: "";
+      display: block;
+      height: var(--pin-run);
+    }
+
+    .pin {
+      position: sticky;
+      top: var(--pin-top);
+    }
+
+    /* усі переваги в одній клітинці, кожна зі своєю лінією згори */
+    .values {
+      padding-top: 0;
+      border-top: 0;
+      overflow: clip;
+    }
+    .values > li,
+    .values > li + li {
+      grid-area: 1 / 1;
+      padding-top: 32px;
+      border-top: 1px solid var(--ink-12);
+      /* фон темної секції — щоб пункт перекривав попередній */
+      background: var(--ink);
+    }
+
+    /* 1-ша зникає, коли наїжджає 2-га; 2-га — коли наїжджає 3-тя */
+    .values > li:nth-child(1) {
+      animation: about-out linear both;
+      animation-timeline: --about;
+      animation-range:
+        cover calc(var(--pin-start) + 0.15 * var(--pin-run))
+        cover calc(var(--pin-start) + 0.45 * var(--pin-run));
+    }
+    .values > li:nth-child(2) {
+      animation:
+        about-in linear both,
+        about-out linear both;
+      animation-timeline: --about, --about;
+      animation-range:
+        cover calc(var(--pin-start) + 0.15 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.45 * var(--pin-run)),
+        cover calc(var(--pin-start) + 0.55 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.85 * var(--pin-run));
+    }
+    .values > li:nth-child(3) {
+      animation: about-in linear both;
+      animation-timeline: --about;
+      animation-range:
+        cover calc(var(--pin-start) + 0.55 * var(--pin-run))
+        cover calc(var(--pin-start) + 0.85 * var(--pin-run));
+    }
+  }
+}
+
+/* наступна перевага виїжджає знизу й накриває попередню */
+@keyframes about-in {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/* попередня тим часом тане */
+@keyframes about-out {
+  to {
+    opacity: 0;
+  }
+}
