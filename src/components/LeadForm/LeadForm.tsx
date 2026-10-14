@@ -10,7 +10,7 @@ import {
   type LeadErrors,
   type LeadPrefill,
 } from "@/lib/lead";
-import { ArrowRight, Check } from "../icons";
+import { Check } from "../icons";
 import styles from "./LeadForm.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -235,7 +235,6 @@ export function LeadForm() {
       <div className={styles.submit}>
         <button type="submit" className="btn btn--accent" disabled={status === "sending"}>
           {status === "sending" ? t.sending : common.cta}
-          <ArrowRight />
         </button>
         <p id={`${uid}-note`} className={styles.note}>
           {t.note}

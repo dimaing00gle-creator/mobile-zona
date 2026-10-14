@@ -63,7 +63,7 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <LeadButton size="sm" className={`${styles.cta} ${pastHero ? "" : styles.ctaQuiet}`}>
+          <LeadButton size="sm" arrow className={`${styles.cta} ${pastHero ? "" : styles.ctaQuiet}`}>
             {header.cta}
           </LeadButton>
           <button

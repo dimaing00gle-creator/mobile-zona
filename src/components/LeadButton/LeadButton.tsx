@@ -11,10 +11,21 @@ type Props = LeadPrefill & {
   className?: string;
   /** Extra action after the click, e.g. closing the mobile menu */
   onClick?: () => void;
+  /** Show the trailing arrow; buttons hide it (only the header CTA keeps it), text links show it */
+  arrow?: boolean;
 };
 
 /** Link to the lead form that also prefills the topic and interest */
-export function LeadButton({ topic, interest, children, variant = "accent", size, className, onClick }: Props) {
+export function LeadButton({
+  topic,
+  interest,
+  children,
+  variant = "accent",
+  size,
+  className,
+  onClick,
+  arrow = variant === "link",
+}: Props) {
   const cls =
     variant === "link"
       ? "link-arrow"
@@ -32,7 +43,7 @@ export function LeadButton({ topic, interest, children, variant = "accent", size
       }}
     >
       {children}
-      <ArrowRight />
+      {arrow && <ArrowRight />}
     </a>
   );
 }
