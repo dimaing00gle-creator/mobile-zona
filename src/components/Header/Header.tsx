@@ -31,15 +31,17 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    // While the menu is open, the page underneath doesn't scroll
-    document.body.style.overflow = "hidden";
+    // While the menu is open, the page underneath doesn't scroll.
+    // Lock on html, not body: overflow on body would break the sticky header
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
     getLenis()?.stop();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     // Restore scrolling when the menu closes or the header unmounts with the menu open
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      root.style.overflow = "";
       getLenis()?.start();
     };
   }, [open]);

@@ -60,7 +60,10 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* clip, not hidden: hidden turns body into a scroll container once html gets overflow
+     (scroll lock while the menu is open), and the sticky header then scrolls away */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
