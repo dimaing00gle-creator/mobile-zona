@@ -563,4 +563,8 @@
   .item {
     padding-block: 22px;
   }
+  /* Phone: the booking button spans the full content width */
+  .aside > a {
+    justify-self: stretch;
+  }
 }
