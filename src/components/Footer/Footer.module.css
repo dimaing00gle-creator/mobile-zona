@@ -91,9 +91,6 @@
   .grid {
     grid-template-columns: 1fr 1fr;
   }
-  .footer {
-    padding-bottom: 104px; /* room for the mobile lead button */
-  }
   /* Phones: all footer content centered */
   .grid {
     text-align: center;

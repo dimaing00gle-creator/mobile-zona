@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
-import { MobileCta } from "@/components/MobileCta";
 import { ProductSlider } from "@/components/ProductSlider";
 import { Reviews } from "@/components/Reviews";
 import { Services } from "@/components/Services";
@@ -27,7 +26,6 @@ export default function Home() {
         <Socials />
       </main>
       <Footer />
-      <MobileCta />
     </>
   );
 }
