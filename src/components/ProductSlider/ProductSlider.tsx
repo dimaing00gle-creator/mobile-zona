@@ -48,7 +48,16 @@ export function ProductSlider() {
   return (
     <section id="catalog" className="section" aria-labelledby="catalog-title">
       <div className="container">
-        <SectionHead id="catalog-title" title={catalog.title} />
+        <SectionHead
+          id="catalog-title"
+          title={
+            <>
+              {catalog.title[0]}
+              <span className={styles.dash}> —</span> <br className={styles.br} />
+              {catalog.title[1]}
+            </>
+          }
+        />
       </div>
 
       <div

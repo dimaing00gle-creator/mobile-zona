@@ -31,7 +31,7 @@ export const nav = [
   { href: "#services", label: "Послуги" },
   { href: "#about", label: "Про нас" },
   { href: "#reviews", label: "Відгуки" },
-  { href: "#stores", label: "Магазини" },
+  { href: "#stores", label: "Контакти" },
 ];
 
 // Shared copy reused across several blocks
@@ -47,8 +47,6 @@ export const header = {
   mobileNavLabel: "Мобільна навігація",
   menuOpen: "Відкрити меню",
   menuClose: "Закрити меню",
-  // the mobile menu gets an extra Contacts item after the sections
-  mobileExtra: { href: "#contacts", label: "Контакти" },
 };
 
 export const hero = {
@@ -65,7 +63,8 @@ export const hero = {
 } as const;
 
 export const catalog = {
-  title: "Усе для вашого смартфона — в одному магазині",
+  // Two parts: joined with a dash on tablet/desktop, a line break without the dash on phones
+  title: ["Усе для вашого смартфона", "в одному магазині"],
   regionLabel: "Категорії товарів",
   roleDescription: "карусель",
   prev: "Попередні товари",
@@ -197,7 +196,7 @@ export const services = [
   },
 ];
 
-// Text over the services photo (desktop only): two sentences, two lines
+// Text over the services photo (desktop) or under it (phones): two sentences, two lines
 export const servicesAi = [
   "Ми активно використовуємо штучний інтелект у своїй роботі.",
   "Він допомагає нам працювати швидше й робити сервіс ще якіснішим.",
@@ -219,13 +218,15 @@ export const servicesBlock = {
 export const about = {
   title: "Магазини, куди хочеться повернутися",
   text: [
-    "Mobile Zona — українська мережа магазинів смартфонів та аксесуарів. Ми віримо, що покупку техніки варто робити наживо: потримати пристрій у руках, поставити питання й отримати чесну відповідь.",
+    "Mobile Zona — українська мережа магазинів смартфонів та аксесуарів.\nМи віримо, що покупку техніки варто робити наживо: потримати пристрій у\u00a0руках, поставити питання й отримати чесну відповідь.",
   ],
   values: [
     { title: "Офіційна техніка", text: "Лише сертифіковані пристрої\nз гарантією виробника." },
     { title: "Чесна консультація", text: "Порадимо так, як порадили б другу." },
     { title: "Сервіс після покупки", text: "Не зникаємо після оплати — допоможемо з будь-яким питанням." },
   ],
+  // last item of the values list: the store logo
+  logo: { src: "/mobile-zona-logo.webp", alt: "Логотип Mobile Zona" },
 };
 
 export type Store = {
@@ -233,6 +234,8 @@ export type Store = {
   city: string;
   name: string;
   address: string;
+  /** Shopping centre or landmark, shown next to the city */
+  place?: string;
   postalCode: string;
   region: string;
   hours: string;
@@ -241,75 +244,37 @@ export type Store = {
   phone: string;
 };
 
-// REPLACE: real store addresses, hours and phone numbers
+// REPLACE: postal codes, store phone numbers and the house number on Brativ Lazuniv St
 export const stores: Store[] = [
   {
-    id: "kyiv-khreshchatyk",
-    city: "Київ",
-    name: "Mobile Zona Хрещатик",
-    address: "вул. Хрещатик, 22",
-    postalCode: "01001",
-    region: "Київ",
-    hours: "Щодня 10:00–21:00",
-    opens: "10:00",
+    id: "konotop-lazarevskoho",
+    city: "Конотоп",
+    name: "Mobile Zona Лазаревського",
+    address: "вул. Лазаревського, 12",
+    place: "«Будинок торгівлі»",
+    postalCode: "41600",
+    region: "Сумська область",
+    hours: "Щодня 08:00–21:00",
+    opens: "08:00",
     closes: "21:00",
     phone: "+380 67 000 00 01",
   },
   {
-    id: "kyiv-vasylkivska",
-    city: "Київ",
-    name: "Mobile Zona Васильківська",
-    address: "вул. Велика Васильківська, 72",
-    postalCode: "03150",
-    region: "Київ",
-    hours: "Щодня 10:00–21:00",
-    opens: "10:00",
-    closes: "21:00",
+    id: "konotop-brativ-lazuniv",
+    city: "Конотоп",
+    name: "Mobile Zona Братів Лазунів",
+    address: "вул. Братів Лазунів",
+    postalCode: "41600",
+    region: "Сумська область",
+    hours: "Щодня 09:00–20:00",
+    opens: "09:00",
+    closes: "20:00",
     phone: "+380 67 000 00 02",
-  },
-  {
-    id: "lviv",
-    city: "Львів",
-    name: "Mobile Zona Львів",
-    address: "просп. Шевченка, 7",
-    postalCode: "79005",
-    region: "Львівська область",
-    hours: "Щодня 10:00–20:00",
-    opens: "10:00",
-    closes: "20:00",
-    phone: "+380 67 000 00 03",
-  },
-  {
-    id: "odesa",
-    city: "Одеса",
-    name: "Mobile Zona Одеса",
-    address: "вул. Дерибасівська, 15",
-    postalCode: "65026",
-    region: "Одеська область",
-    hours: "Щодня 10:00–21:00",
-    opens: "10:00",
-    closes: "21:00",
-    phone: "+380 67 000 00 04",
-  },
-  {
-    id: "dnipro",
-    city: "Дніпро",
-    name: "Mobile Zona Дніпро",
-    address: "просп. Дмитра Яворницького, 50",
-    postalCode: "49000",
-    region: "Дніпропетровська область",
-    hours: "Щодня 10:00–20:00",
-    opens: "10:00",
-    closes: "20:00",
-    phone: "+380 67 000 00 05",
   },
 ];
 
-export const cities = Array.from(new Set(stores.map((s) => s.city)));
-
 export const storeFinder = {
-  title: "Магазин поруч із вами",
-  citiesLabel: "Оберіть місто",
+  title: "Як нас знайти?",
   country: "Україна",
   route: "Прокласти маршрут",
   reserveText: "Хочете бути впевнені, що потрібна модель чекатиме на вас?",
@@ -322,15 +287,11 @@ export const storeFinder = {
 // REPLACE: SAMPLE reviews for layout only. Before launch, swap them for
 // real customer reviews (e.g. from Google Maps) — fabricated reviews must not be published.
 export const reviewsSummary = {
-  rating: "4.9",
-  count: "1 200+",
-  source: "Google Maps",
   href: "https://www.google.com/maps",
 };
 
 export const reviewsBlock = {
   title: "Нам довіряють і повертаються",
-  summaryText: `Середня оцінка за ${reviewsSummary.count} відгуків на ${reviewsSummary.source}`,
   allLink: "Усі відгуки",
   ratingLabel: (rating: number) => `Оцінка ${rating} з 5`,
 };
@@ -339,7 +300,7 @@ export const reviews = [
   {
     id: "olena",
     name: "Олена К.",
-    store: "Київ, Хрещатик",
+    store: "Конотоп",
     date: "Вересень 2026",
     rating: 5,
     text: "Прийшла по новий телефон для мами. Консультант не поспішав, показав три моделі й пояснив різницю простими словами. Ще й перенесли всі контакти та фото.",
@@ -347,7 +308,7 @@ export const reviews = [
   {
     id: "iryna",
     name: "Ірина Т.",
-    store: "Одеса",
+    store: "Конотоп",
     date: "Серпень 2026",
     rating: 5,
     text: "Залишила заявку на сайті ввечері, зранку передзвонили й відклали потрібний колір. Залишилося тільки прийти й забрати.",
@@ -355,68 +316,47 @@ export const reviews = [
   {
     id: "maksym",
     name: "Максим Д.",
-    store: "Дніпро",
+    store: "Конотоп",
     date: "Липень 2026",
     rating: 4,
     text: "Хороший вибір аксесуарів, скло наклеїли ідеально. Трохи довелося почекати в суботу, але воно того варте.",
-  },
-  {
-    id: "nataliia",
-    name: "Наталія Р.",
-    store: "Київ, Васильківська",
-    date: "Липень 2026",
-    rating: 5,
-    text: "Брала в розстрочку — все прозоро, без прихованих платежів. Окреме дякую за налаштування банківських застосунків.",
-  },
-  {
-    id: "oleh",
-    name: "Олег С.",
-    store: "Київ, Хрещатик",
-    date: "Червень 2026",
-    rating: 5,
-    text: "Не міг обрати між двома моделями — дали потестувати обидві камери прямо в магазині. Рішення прийняв за 5 хвилин.",
-  },
-  {
-    id: "andrii",
-    name: "Андрій П.",
-    store: "Львів",
-    date: "Червень 2026",
-    rating: 5,
-    text: "Телефон почав гальмувати, а співрозмовника було погано чути. Почистили динаміки й звільнили пам’ять, поки я пив каву поруч. Тепер працює як новий.",
   },
 ];
 
 export const contacts = {
   title: "Порадимо, перш ніж ви купите",
   lead: "Залиште заявку — консультант підбере кілька моделей під ваш запит, а ми відкладемо їх у зручному магазині. Прийдете, спробуєте й вирішите на місці.",
-  hotline: "Гаряча лінія",
-  email: "Пошта",
-  socials: "Ми в соцмережах",
   formTitle: "Заявка на консультацію",
+};
+
+export const socials = {
+  title: "Ми в соцмережах",
+  // own photo split in two layers: the room without the statue (686×1200, statue painted out of
+  // public/images/socials-statue.jpg) slowly zooms out behind the static statue cut-out
+  image: {
+    src: "/images/socials-statue-room.webp",
+    alt: "Антична статуя в жовтих навушниках і жовтих окулярах у залі галереї",
+    width: 686,
+    height: 1200,
+    // statue cut-out of the same photo (transparent, 686×1200): layered over the caption band
+    cutout: "/images/socials-statue-cutout.webp",
+  },
 };
 
 export const leadForm = {
   name: { label: "Ім’я", placeholder: "Як до вас звертатися" },
   phone: { label: "Телефон", placeholder: "+380 __ ___ __ __" },
-  topicLegend: "Тема звернення",
-  interestLabel: "Цікавить",
-  interestRemove: (interest: string) => `Прибрати: ${interest}`,
-  store: { label: "Зручний магазин", any: "Будь-який — порадьте мені" },
-  contactLegend: "Як зв’язатися",
   comment: {
     label: "Коментар (необов’язково)",
     placeholder: "Наприклад: шукаю смартфон з хорошою камерою до 20 000 ₴",
   },
   honeypot: "Компанія",
-  consent: { text: "Погоджуюсь на обробку персональних даних відповідно до", link: "політики конфіденційності" },
+  consent: { text: "Натискаючи кнопку, ви погоджуєтеся з", link: "політикою конфіденційності" },
   sending: "Надсилаємо…",
-  note: "Безкоштовно та без зобов’язань. Передзвонимо протягом 15 хвилин.",
   error: "Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте нам.",
   success: {
     title: (firstName: string) => `Дякуємо, ${firstName}!`,
-    // contact method inside the sentence, e.g. "via call" or "via Telegram"
-    text: (method: string) =>
-      `Заявку отримано. Менеджер зв’яжеться з вами протягом 15 хвилин у робочий час — через ${method === "Дзвінок" ? "дзвінок" : method}.`,
+    text: "Заявку отримано. Менеджер зателефонує вам протягом 15 хвилин у робочий час.",
     again: "Надіслати ще одну заявку",
   },
 };
@@ -435,7 +375,7 @@ export const footer = {
 export const privacy = {
   title: "Політика конфіденційності",
   description: `Як ${site.name} обробляє персональні дані, залишені у формі заявки на сайті.`,
-  intro: `${site.name} обробляє лише ті дані, які ви залишаєте у формі заявки: ім’я, номер телефону, обраний магазин і коментар. Ми використовуємо їх виключно для того, щоб зв’язатися з вами та надати консультацію.`,
+  intro: `${site.name} обробляє лише ті дані, які ви залишаєте у формі заявки: ім’я, номер телефону і коментар. Ми використовуємо їх виключно для того, щоб зв’язатися з вами та надати консультацію.`,
   // the paragraph continues with an email link
   storage:
     "Дані не передаються третім особам, окрім сервісів, необхідних для обробки заявки, і зберігаються не довше, ніж потрібно для цієї мети. Ви можете будь-коли попросити видалити ваші дані, написавши на",

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { stores } from "@/content/site";
-import { isContactMethod, isLeadTopic, normalizeUaPhone, validateLead } from "@/lib/lead";
+import { isLeadTopic, normalizeUaPhone, validateLead } from "@/lib/lead";
 
 // Simple flood protection: at most 5 leads per IP per 10 minutes
 const WINDOW_MS = 10 * 60 * 1000;
@@ -31,8 +30,7 @@ export async function POST(req: Request) {
 
   const name = str(body.name, 80);
   const phoneRaw = str(body.phone, 32);
-  const consent = body.consent === true;
-  const errors = validateLead({ name, phone: phoneRaw, consent });
+  const errors = validateLead({ name, phone: phoneRaw });
   if (Object.keys(errors).length) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
   }
@@ -44,8 +42,6 @@ export async function POST(req: Request) {
 
   const phone = normalizeUaPhone(phoneRaw)!;
   const topic = isLeadTopic(body.topic) ? body.topic : "Інше";
-  const contactMethod = isContactMethod(body.contactMethod) ? body.contactMethod : "Дзвінок";
-  const store = stores.find((s) => s.id === body.store);
   const interest = str(body.interest, 200);
   const comment = str(body.comment, 1000);
 
@@ -54,10 +50,8 @@ export async function POST(req: Request) {
     "",
     `<b>Ім’я:</b> ${esc(name)}`,
     `<b>Телефон:</b> ${phone}`,
-    `<b>Зв’язатися:</b> ${contactMethod}`,
     `<b>Тема:</b> ${esc(topic)}`,
     interest && `<b>Цікавить:</b> ${esc(interest)}`,
-    `<b>Магазин:</b> ${store ? esc(`${store.city}, ${store.address}`) : "будь-який"}`,
     comment && `<b>Коментар:</b> ${esc(comment)}`,
   ]
     .filter(Boolean)

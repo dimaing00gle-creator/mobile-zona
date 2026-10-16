@@ -5,29 +5,9 @@ import styles from "./Reviews.module.css";
 
 export function Reviews() {
   return (
-    <section id="reviews" className={`section ${styles.section}`} aria-labelledby="reviews-title">
+    <section id="reviews" className="section" aria-labelledby="reviews-title">
       <div className="container">
-        <SectionHead
-          id="reviews-title"
-          title={reviewsBlock.title}
-          aside={
-            <div className={styles.summary}>
-              <p className={styles.rating}>
-                {reviewsSummary.rating}
-                <span className={styles.stars} aria-hidden="true">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star key={i} size={16} />
-                  ))}
-                </span>
-              </p>
-              <p className="muted">{reviewsBlock.summaryText}</p>
-              <a href={reviewsSummary.href} className="link-arrow" target="_blank" rel="noopener noreferrer">
-                {reviewsBlock.allLink}
-                <ArrowUpRight />
-              </a>
-            </div>
-          }
-        />
+        <SectionHead id="reviews-title" title={reviewsBlock.title} />
       </div>
 
       <ul className={styles.list}>
@@ -57,6 +37,13 @@ export function Reviews() {
           </li>
         ))}
       </ul>
+
+      <div className={`container ${styles.more}`}>
+        <a href={reviewsSummary.href} className="link-arrow" target="_blank" rel="noopener noreferrer">
+          {reviewsBlock.allLink}
+          <ArrowUpRight />
+        </a>
+      </div>
     </section>
   );
 }

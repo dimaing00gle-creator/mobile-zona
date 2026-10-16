@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { about } from "@/content/site";
 import styles from "./About.module.css";
 
@@ -26,6 +27,16 @@ export function About() {
                   <p className={`muted ${styles.valueText}`}>{v.text}</p>
                 </li>
               ))}
+              <li>
+                <Image
+                  src={about.logo.src}
+                  alt={about.logo.alt}
+                  width={480}
+                  height={480}
+                  sizes="140px"
+                  className={styles.logo}
+                />
+              </li>
             </ul>
           </div>
         </div>

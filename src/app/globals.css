@@ -3,6 +3,8 @@
   --bg: #f1f0ed;
   --ink: #1d1d1f;
   --accent: #e2f23a;
+  /* logo yellow — only for the About text when the logo appears (owner's decision) */
+  --logo-yellow: #ffcc03;
 
   --ink-80: rgb(29 29 31 / 0.8);
   --ink-60: rgb(29 29 31 / 0.62);

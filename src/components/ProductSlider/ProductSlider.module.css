@@ -1,3 +1,8 @@
+/* Heading line break — phones only (instead of the dash) */
+.br {
+  display: none;
+}
+
 .viewport {
   /* The carousel bleeds past the container's right edge as a hint there's more */
   padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
@@ -143,8 +148,28 @@
 }
 
 @media (max-width: 767px) {
+  .dash {
+    display: none;
+  }
+  .br {
+    display: inline;
+  }
   .track {
     grid-auto-columns: 78vw;
+  }
+  .body {
+    align-items: center;
+    text-align: center;
+  }
+  /* Phones: full-width progress bar, centered counter below it */
+  .controls {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .bar {
+    order: -1;
+    flex: none;
+    align-self: stretch;
   }
   .arrows {
     display: none;

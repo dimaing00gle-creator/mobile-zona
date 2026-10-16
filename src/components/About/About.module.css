@@ -10,8 +10,17 @@
 .text {
   max-width: 760px;
   margin-inline: auto;
+  /* \n in the text starts a new sentence on its own line */
+  white-space: pre-line;
   font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.55;
+}
+
+/* desktop: slightly narrower lines */
+@media (min-width: 1200px) {
+  .text {
+    max-width: 755px;
+  }
 }
 
 /* values stacked in a column, one per line */
@@ -33,13 +42,22 @@
   margin-bottom: 4px;
 }
 
+/* store logo as the last item; cropped to a circle, the file's dark corners differ from the section background */
+.logo {
+  display: block;
+  width: 140px;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 50%;
+}
+
 /* \n in a value's text forces a line break */
 .valueText {
   white-space: pre-line;
 }
 
 /*
- * Desktop: the block sticks under the header, and over one screen of scrolling
+ * Desktop: the block sticks under the header, and over 1.5 screens of scrolling
  * the values slide over one another in turn. Only where the browser supports
  * scroll-driven animations and the user hasn't asked for reduced motion;
  * otherwise it's the plain list above.
@@ -49,7 +67,7 @@
     .track {
       /* where the content sticks and how much scrolling the effect lasts */
       --pin-top: calc(var(--header-h) + var(--section-y));
-      --pin-run: 100vh;
+      --pin-run: 150vh;
       /* effect start on the cover range: the moment the content sticks */
       --pin-start: calc(100vh - var(--pin-top));
       view-timeline: --about;
@@ -82,13 +100,13 @@
       background: var(--ink);
     }
 
-    /* 1st fades as the 2nd slides in; 2nd fades as the 3rd does */
+    /* each item fades out while the next one slides over it */
     .values > li:nth-child(1) {
       animation: about-out linear both;
       animation-timeline: --about;
       animation-range:
-        cover calc(var(--pin-start) + 0.15 * var(--pin-run))
-        cover calc(var(--pin-start) + 0.45 * var(--pin-run));
+        cover calc(var(--pin-start) + 0.1 * var(--pin-run))
+        cover calc(var(--pin-start) + 0.3 * var(--pin-run));
     }
     .values > li:nth-child(2) {
       animation:
@@ -96,17 +114,37 @@
         about-out linear both;
       animation-timeline: --about, --about;
       animation-range:
-        cover calc(var(--pin-start) + 0.15 * var(--pin-run))
-          cover calc(var(--pin-start) + 0.45 * var(--pin-run)),
-        cover calc(var(--pin-start) + 0.55 * var(--pin-run))
-          cover calc(var(--pin-start) + 0.85 * var(--pin-run));
+        cover calc(var(--pin-start) + 0.1 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.3 * var(--pin-run)),
+        cover calc(var(--pin-start) + 0.4 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.6 * var(--pin-run));
     }
     .values > li:nth-child(3) {
+      animation:
+        about-in linear both,
+        about-out linear both;
+      animation-timeline: --about, --about;
+      animation-range:
+        cover calc(var(--pin-start) + 0.4 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.6 * var(--pin-run)),
+        cover calc(var(--pin-start) + 0.7 * var(--pin-run))
+          cover calc(var(--pin-start) + 0.9 * var(--pin-run));
+    }
+    .values > li:nth-child(4) {
       animation: about-in linear both;
       animation-timeline: --about;
       animation-range:
-        cover calc(var(--pin-start) + 0.55 * var(--pin-run))
-        cover calc(var(--pin-start) + 0.85 * var(--pin-run));
+        cover calc(var(--pin-start) + 0.7 * var(--pin-run))
+        cover calc(var(--pin-start) + 0.9 * var(--pin-run));
+    }
+
+    /* the text above turns logo yellow as the logo slides in */
+    .text {
+      animation: about-text-logo linear both;
+      animation-timeline: --about;
+      animation-range:
+        cover calc(var(--pin-start) + 0.7 * var(--pin-run))
+        cover calc(var(--pin-start) + 0.9 * var(--pin-run));
     }
   }
 }
@@ -125,5 +163,11 @@
 @keyframes about-out {
   to {
     opacity: 0;
+  }
+}
+
+@keyframes about-text-logo {
+  to {
+    color: var(--logo-yellow);
   }
 }

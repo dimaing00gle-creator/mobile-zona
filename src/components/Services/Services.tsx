@@ -24,7 +24,7 @@ export function Services() {
             title={<span className={styles.title}>{servicesBlock.title}</span>}
           />
 
-          {/* Text under the heading, over the photo — desktop only */}
+          {/* Text under the heading, over the photo on desktop; under the photo on phones */}
           <p className={styles.note}>
             {servicesAi.map((line, k) => (
               <Fragment key={line}>

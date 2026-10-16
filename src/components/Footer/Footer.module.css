@@ -94,6 +94,26 @@
   .footer {
     padding-bottom: 104px; /* room for the mobile lead button */
   }
+  /* Phones: all footer content centered */
+  .grid {
+    text-align: center;
+  }
+  .brand {
+    justify-self: center;
+    justify-items: center;
+  }
+  .bottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .legal {
+    justify-content: center;
+  }
+  /* the dash would push the motto off-center */
+  .dash {
+    display: none;
+  }
 }
 
 @media (max-width: 479px) {

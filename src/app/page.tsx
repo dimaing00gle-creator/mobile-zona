@@ -8,6 +8,7 @@ import { MobileCta } from "@/components/MobileCta";
 import { ProductSlider } from "@/components/ProductSlider";
 import { Reviews } from "@/components/Reviews";
 import { Services } from "@/components/Services";
+import { Socials } from "@/components/Socials";
 import { StoreFinder } from "@/components/StoreFinder";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
         <Reviews />
         <StoreFinder />
         <Contacts />
+        <Socials />
       </main>
       <Footer />
       <MobileCta />

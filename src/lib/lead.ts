@@ -1,21 +1,17 @@
 import { leadTopics, type LeadTopic } from "@/content/site";
 
-export const contactMethods = ["Дзвінок", "Telegram", "Viber"] as const;
-export type ContactMethod = (typeof contactMethods)[number];
-
 export type Lead = {
   name: string;
   phone: string;
-  store: string;
-  topic: LeadTopic;
-  contactMethod: ContactMethod;
   comment: string;
-  consent: boolean;
+  /** Context from the CTA the visitor clicked; not shown as form fields */
+  topic?: LeadTopic;
+  interest?: string;
   /** Honeypot: real users never see this field */
   company?: string;
 };
 
-export type LeadErrors = Partial<Record<"name" | "phone" | "consent", string>>;
+export type LeadErrors = Partial<Record<"name" | "phone", string>>;
 
 /** Normalizes a number to +380XXXXXXXXX or returns null */
 export function normalizeUaPhone(raw: string): string | null {
@@ -25,20 +21,15 @@ export function normalizeUaPhone(raw: string): string | null {
   return null;
 }
 
-export function validateLead(lead: Pick<Lead, "name" | "phone" | "consent">): LeadErrors {
+export function validateLead(lead: Pick<Lead, "name" | "phone">): LeadErrors {
   const errors: LeadErrors = {};
   if (lead.name.trim().length < 2) errors.name = "Вкажіть, як до вас звертатися";
   if (!normalizeUaPhone(lead.phone)) errors.phone = "Вкажіть номер у форматі +380 XX XXX XX XX";
-  if (!lead.consent) errors.consent = "Потрібна згода на обробку даних";
   return errors;
 }
 
 export function isLeadTopic(value: unknown): value is LeadTopic {
   return typeof value === "string" && (leadTopics as readonly string[]).includes(value);
-}
-
-export function isContactMethod(value: unknown): value is ContactMethod {
-  return typeof value === "string" && (contactMethods as readonly string[]).includes(value);
 }
 
 /** Event for prefilling the form from any button on the page */

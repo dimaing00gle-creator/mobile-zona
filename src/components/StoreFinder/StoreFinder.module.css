@@ -1,47 +1,30 @@
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 32px;
+/* Dark like Contacts below it, so a thin container-wide line separates the two */
+.section {
+  position: relative;
 }
 
-.tab {
-  min-height: 44px;
-  padding: 0 22px;
-  border-radius: 999px;
-  border: 1px solid var(--ink-20);
-  font-size: 15px;
-  transition:
-    background-color 0.25s var(--ease),
-    color 0.25s var(--ease),
-    border-color 0.25s var(--ease);
+.section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(min(100%, var(--container) + var(--gutter) * 2) - var(--gutter) * 2);
+  height: 1px;
+  background: var(--ink-20);
+  transform: translateX(-50%);
 }
 
-.tab:hover {
-  border-color: var(--ink);
-}
-
-.tab[aria-pressed="true"] {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--bg);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(24px, 4vw, 64px);
-  align-items: stretch;
-}
-
+/* Stores side by side, map full width below */
 .list {
-  border-top: 1px solid var(--ink-12);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(24px, 4vw, 64px);
 }
 
 .store {
   position: relative;
+  height: 100%;
   padding: 24px 0 24px 20px;
-  border-bottom: 1px solid var(--ink-12);
 }
 
 .store::before {
@@ -72,6 +55,16 @@
   font-size: 14px;
 }
 
+/* Street name lights up in accent for the selected store and on hover */
+.select h3 {
+  transition: color 0.25s var(--ease);
+}
+
+.active .select h3,
+.select:hover h3 {
+  color: var(--accent);
+}
+
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -94,15 +87,19 @@
 }
 
 .note {
-  display: grid;
-  gap: 12px;
-  justify-items: start;
-  padding-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px 24px;
+  margin-top: 28px;
 }
 
 .map {
   position: relative;
-  min-height: 460px;
+  height: clamp(320px, 36vw, 480px);
+  margin-top: clamp(24px, 3vw, 40px);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--ink-05);
@@ -118,12 +115,39 @@
   filter: grayscale(1) contrast(0.95) brightness(1.02);
 }
 
+/* Desktop: the right-hand store mirrors the left one */
+@media (min-width: 1200px) {
+  .list li:nth-child(2n) .store {
+    padding: 24px 20px 24px 0;
+    text-align: right;
+  }
+  .list li:nth-child(2n) .store::before {
+    left: auto;
+    right: 0;
+  }
+  .list li:nth-child(2n) .select {
+    text-align: right;
+  }
+  .list li:nth-child(2n) .links {
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 767px) {
-  .grid {
+  .list {
     grid-template-columns: 1fr;
   }
-  .map {
-    min-height: 320px;
-    order: -1;
+  /* Phones: centered text, no side bar — the selected store is shown by the accent street name */
+  .store {
+    padding-inline: 0;
+  }
+  .store::before {
+    display: none;
+  }
+  .select {
+    text-align: center;
+  }
+  .links {
+    justify-content: center;
   }
 }

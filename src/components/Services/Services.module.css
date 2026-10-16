@@ -46,9 +46,26 @@
   object-fit: cover;
 }
 
-/* Text under the heading is shown on desktop only */
+/* AI text: over the photo on desktop, under it on phones, hidden on tablet */
 .note {
   display: none;
+}
+
+@media (max-width: 767px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+  }
+  .note {
+    order: 1;
+    display: grid;
+    gap: 4px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.45;
+    text-align: center;
+    text-wrap: balance;
+  }
 }
 
 /* Desktop: full-width photo from the section top to the frame's bottom edge, heading on top of it */

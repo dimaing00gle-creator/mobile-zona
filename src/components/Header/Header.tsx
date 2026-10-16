@@ -88,7 +88,7 @@ export function Header() {
       >
         <nav aria-label={header.mobileNavLabel} className="container">
           <ul>
-            {[...nav, header.mobileExtra].map((item, i) => (
+            {nav.map((item, i) => (
               <li key={item.href}>
                 <a href={item.href} onClick={closeMenu}>
                   <span className={styles.menuIndex}>{pad2(i + 1)}</span>
