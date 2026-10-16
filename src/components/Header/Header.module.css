@@ -191,6 +191,23 @@
   }
 }
 
+/* Phones: menu content centered */
+@media (max-width: 767px) {
+  .menu li a {
+    justify-content: center;
+  }
+  /* invisible twin of the index on the right, so the label sits exactly in the middle */
+  .menu li a::after {
+    content: "";
+    width: 24px;
+    flex: none;
+  }
+  .menuFoot {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
 @media (max-width: 479px) {
   .cta {
     display: none;
