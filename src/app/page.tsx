@@ -9,6 +9,7 @@ import { Reviews } from "@/components/Reviews";
 import { Services } from "@/components/Services";
 import { Socials } from "@/components/Socials";
 import { StoreFinder } from "@/components/StoreFinder";
+import { UsedIphones } from "@/components/UsedIphones";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <main id="main">
         <Hero />
         <ProductSlider />
+        <UsedIphones />
         <Services />
         <About />
         <Reviews />

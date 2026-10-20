@@ -158,6 +158,55 @@ export const categories: Category[] = [
   },
 ];
 
+export const usedIphonesBlock = {
+  title: "Вживані iPhone — перевірені та з гарантією",
+  listLabel: "Вживані iPhone у наявності",
+  cta: "Зарезервувати",
+  ctaTopic: "Підбір смартфона",
+  ctaLabel: (model: string) => `Зарезервувати ${model}`,
+  interest: (model: string) => `Вживаний ${model}`,
+} as const;
+
+export type UsedIphone = {
+  id: string;
+  model: string;
+  price: string;
+  image: string;
+  alt: string;
+};
+
+// REPLACE: real models, prices and photos (public/images/) — Unsplash placeholders for now
+export const usedIphones: UsedIphone[] = [
+  {
+    id: "iphone-11",
+    model: "iPhone 11, 128 ГБ",
+    price: "9 999 ₴",
+    image: unsplash("1591337676887-a217a6970a8a"),
+    alt: "Білий iPhone 11 тильною стороною на жовто-білому фоні",
+  },
+  {
+    id: "iphone-12-pro",
+    model: "iPhone 12 Pro, 128 ГБ",
+    price: "14 999 ₴",
+    image: unsplash("1611791484670-ce19b801d192"),
+    alt: "iPhone 12 Pro із золотистою рамкою та увімкненим екраном блокування",
+  },
+  {
+    id: "iphone-13-pro",
+    model: "iPhone 13 Pro, 128 ГБ",
+    price: "19 999 ₴",
+    image: unsplash("1632661674596-df8be070a5c5"),
+    alt: "Небесно-блакитний iPhone 13 Pro у руці",
+  },
+  {
+    id: "iphone-14-pro",
+    model: "iPhone 14 Pro, 256 ГБ",
+    price: "26 999 ₴",
+    image: unsplash("1678685888221-cda773a3dcdb"),
+    alt: "Графітовий iPhone 14 Pro з потрійною камерою в руці",
+  },
+];
+
 export const leadTopics = [
   "Підбір смартфона",
   "Розстрочка",

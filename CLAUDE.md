@@ -91,6 +91,7 @@ src/
 | — | Хедер (sticky, бургер <1200px) | `Header` | — |
 | 1 | Главный экран | `Hero` | `#top` |
 | 01 | Слайдер категорий товаров | `ProductSlider` | `#catalog` |
+| 02 | Б/у iPhone (4 карточки: фото, модель, цена, кнопка «Зарезервувати») | `UsedIphones` | `#used-iphones` |
 | 03 | Услуги | `Services` | `#services` |
 | 04 | О нас + цифры | `About` | `#about` |
 | 05 | Отзывы | `Reviews` | `#reviews` |

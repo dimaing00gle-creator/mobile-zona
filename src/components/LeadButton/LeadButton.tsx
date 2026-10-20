@@ -9,6 +9,8 @@ type Props = LeadPrefill & {
   variant?: "accent" | "ghost" | "link";
   size?: "sm";
   className?: string;
+  /** Accessible name when the visible text alone is ambiguous, e.g. repeated card buttons */
+  ariaLabel?: string;
   /** Extra action after the click, e.g. closing the mobile menu */
   onClick?: () => void;
   /** Show the trailing arrow; buttons hide it (only the header CTA keeps it), text links show it */
@@ -23,6 +25,7 @@ export function LeadButton({
   variant = "accent",
   size,
   className,
+  ariaLabel,
   onClick,
   arrow = variant === "link",
 }: Props) {
@@ -35,6 +38,7 @@ export function LeadButton({
     <a
       href="#request"
       className={[cls, className].filter(Boolean).join(" ")}
+      aria-label={ariaLabel}
       onClick={() => {
         if (topic || interest) {
           window.dispatchEvent(new CustomEvent<LeadPrefill>(LEAD_PREFILL_EVENT, { detail: { topic, interest } }));
