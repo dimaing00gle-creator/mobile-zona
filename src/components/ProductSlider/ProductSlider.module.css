@@ -142,9 +142,25 @@
   cursor: default;
 }
 
+/* Tablet and phone: one card per screen — each slide is full width, the card is centered in it */
 @media (max-width: 1199px) {
+  .viewport {
+    padding-left: 0;
+  }
   .track {
-    grid-auto-columns: clamp(260px, 42vw, 400px);
+    grid-auto-columns: 100%;
+    column-gap: 0;
+    scroll-padding-left: 0;
+    padding-right: 0;
+  }
+  .card {
+    align-items: center;
+    padding-inline: var(--gutter);
+  }
+  .media,
+  .body {
+    width: 100%;
+    max-width: 480px;
   }
 }
 
@@ -154,9 +170,6 @@
   }
   .br {
     display: inline;
-  }
-  .track {
-    grid-auto-columns: 78vw;
   }
   .body {
     align-items: center;

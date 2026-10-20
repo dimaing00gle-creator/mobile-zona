@@ -74,7 +74,7 @@ export function ProductSlider() {
                   src={c.image}
                   alt={c.alt}
                   fill
-                  sizes="(max-width: 767px) 82vw, (max-width: 1199px) 44vw, 400px"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1199px) 480px, 400px"
                   className={styles.img}
                   loading={i < 4 ? "eager" : "lazy"}
                 />
