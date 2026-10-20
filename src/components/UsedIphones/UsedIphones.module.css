@@ -1,3 +1,8 @@
+/* Follows the slider directly: its bottom padding is the only gap */
+section.section {
+  padding-top: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -29,7 +34,9 @@
 .body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 6px;
+  text-align: center;
   padding-block: 20px;
   flex: 1;
 }
@@ -49,8 +56,22 @@
   white-space: nowrap;
 }
 
-.cta {
-  align-self: flex-start;
+/* Reserve button sits on the photo, bottom center: frosted light-gray pill */
+.card .cta {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  border-color: transparent;
+  background: var(--bg-70);
+  /* prefixed first: the bundler keeps only the last of the pair */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.card .cta:hover {
+  background: var(--ink);
+  color: var(--bg);
 }
 
 @media (max-width: 1199px) {
@@ -70,10 +91,12 @@
   .title {
     font-size: 15px;
   }
-  /* Two narrow columns: the button takes the full card width */
-  .cta {
-    align-self: stretch;
+  /* Two narrow columns: the button spans the photo width */
+  .card .cta {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    transform: none;
     padding: 0 12px;
-    gap: 8px;
   }
 }
