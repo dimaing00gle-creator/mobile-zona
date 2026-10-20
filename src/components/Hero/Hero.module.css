@@ -142,10 +142,16 @@
   color: var(--ink-80);
 }
 
+.inner {
+  /* shared with the desktop CTA so the button matches the paragraph width */
+  --lead-size: clamp(16px, 1.4vw, 20px);
+  --lead-width: calc(var(--lead-size) * 34);
+}
+
 .lead {
-  max-width: 34em;
+  max-width: var(--lead-width);
   margin-top: 28px;
-  font-size: clamp(16px, 1.4vw, 20px);
+  font-size: var(--lead-size);
   line-height: 1.5;
   color: var(--ink-80);
 }
@@ -154,6 +160,16 @@
   display: flex;
   justify-content: center;
   margin-top: 40px;
+}
+
+/* Desktop: the button is as wide as the paragraph above it */
+@media (min-width: 1200px) {
+  .ctas {
+    width: min(100%, var(--lead-width));
+  }
+  .ctas > * {
+    flex: 1 1 100%;
+  }
 }
 
 @media (max-width: 767px) {

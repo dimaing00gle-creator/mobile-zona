@@ -1,6 +1,6 @@
-import { common, hero } from "@/content/site";
+import { hero } from "@/content/site";
 import { HeroMedia } from "./HeroMedia";
-import { LeadButton } from "../LeadButton";
+import { CallPicker } from "./CallPicker";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -22,7 +22,7 @@ export function Hero() {
         </h1>
         <p className={styles.lead}>{hero.lead}</p>
         <div className={styles.ctas}>
-          <LeadButton topic={hero.ctaTopic}>{common.cta}</LeadButton>
+          <CallPicker />
         </div>
       </div>
     </section>

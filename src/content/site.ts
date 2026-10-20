@@ -59,7 +59,19 @@ export const hero = {
     src: "/images/hero.jpg",
     alt: "Роботизована рука тримає білий смартфон із потрійною камерою",
   },
-  ctaTopic: "Підбір смартфона",
+  // "Call" button: opens a dialog where the visitor picks their mobile operator's number
+  call: {
+    label: "Зателефонувати",
+    title: "Оберіть свого оператора",
+    note: "Дзвоніть на номер вашої мережі.",
+    close: "Закрити",
+    // REPLACE: real numbers for each operator
+    operators: [
+      { name: "Київстар", phone: "+380 67 000 00 00" },
+      { name: "Vodafone", phone: "+380 50 000 00 00" },
+      { name: "lifecell", phone: "+380 63 000 00 00" },
+    ],
+  },
 } as const;
 
 export const catalog = {
