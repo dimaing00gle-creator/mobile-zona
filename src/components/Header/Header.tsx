@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { common, header, nav, site } from "@/content/site";
 import { pad2, telHref } from "@/lib/format";
 import { getLenis } from "@/lib/smooth-scroll";
@@ -91,7 +91,8 @@ export function Header() {
         <nav aria-label={header.mobileNavLabel} className="container">
           <ul>
             {nav.map((item, i) => (
-              <li key={item.href}>
+              // --i staggers the items as the menu opens
+              <li key={item.href} style={{ "--i": i } as CSSProperties}>
                 <a href={item.href} onClick={closeMenu}>
                   <span className={styles.menuIndex}>{pad2(i + 1)}</span>
                   {item.label}
@@ -99,7 +100,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className={styles.menuFoot}>
+          <div className={styles.menuFoot} style={{ "--i": nav.length } as CSSProperties}>
             <a href={telHref(site.phone)} className="h3">
               {site.phone}
             </a>

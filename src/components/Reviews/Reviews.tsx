@@ -10,7 +10,7 @@ export function Reviews() {
         <SectionHead id="reviews-title" title={reviewsBlock.title} />
       </div>
 
-      <ul className={styles.list}>
+      <ul className={`reveal-stagger ${styles.list}`}>
         {reviews.map((r) => (
           <li key={r.id} className={styles.card}>
             <figure>

@@ -37,7 +37,7 @@
   border-radius: 2px;
   background: var(--accent);
   transform: scaleY(0);
-  transition: transform 0.3s var(--ease);
+  transition: transform var(--dur-base) var(--ease);
 }
 
 .active::before {
@@ -57,7 +57,7 @@
 
 /* Street name lights up in accent for the selected store and on hover */
 .select h3 {
-  transition: color 0.25s var(--ease);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .active .select h3,
@@ -113,6 +113,13 @@
   border: 0;
   /* Muted map so it doesn't clash with the site palette */
   filter: grayscale(1) contrast(0.95) brightness(1.02);
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+/* New store picked: the map fades in once it has loaded */
+.switching iframe {
+  opacity: 0;
+  transition: none;
 }
 
 /* Desktop: the right-hand store mirrors the left one */

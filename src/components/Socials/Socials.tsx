@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { site, socials } from "@/content/site";
+import { OffscreenPause } from "../OffscreenPause";
 import styles from "./Socials.module.css";
 
 export function Socials() {
   return (
     <section className={`section ${styles.section}`} aria-labelledby="socials-title">
       <div className="container">
-        <div className={styles.media}>
+        {/* the room photo loops slowly; it pauses while the block is off screen */}
+        <OffscreenPause className={styles.media}>
           <Image
             className={styles.image}
             src={socials.image.src}
@@ -37,7 +39,7 @@ export function Socials() {
               </li>
             ))}
           </ul>
-        </div>
+        </OffscreenPause>
       </div>
     </section>
   );

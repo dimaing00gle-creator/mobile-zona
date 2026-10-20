@@ -24,7 +24,7 @@ section.section {
 
 .img {
   object-fit: cover;
-  transition: transform 0.8s var(--ease);
+  transition: transform var(--dur-slow) var(--ease);
 }
 
 .card:hover .img {

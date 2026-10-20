@@ -36,7 +36,7 @@
 }
 
 .links a {
-  transition: color 0.2s var(--ease);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .links a:hover {

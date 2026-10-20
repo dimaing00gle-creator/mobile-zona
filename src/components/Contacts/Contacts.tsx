@@ -10,9 +10,9 @@ export function Contacts() {
         <SectionHead id="contacts-title" title={contacts.title} />
 
         <div className={styles.body}>
-          <p className={`lead ${styles.lead}`}>{contacts.lead}</p>
+          <p className={`lead reveal ${styles.lead}`}>{contacts.lead}</p>
 
-          <div id="request" className={styles.formWrap}>
+          <div id="request" className={`reveal ${styles.formWrap}`}>
             <h3 className={`h3 ${styles.formTitle}`}>{contacts.formTitle}</h3>
             <LeadForm />
           </div>

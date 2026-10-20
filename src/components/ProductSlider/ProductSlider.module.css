@@ -45,7 +45,7 @@
 
 .img {
   object-fit: cover;
-  transition: transform 0.8s var(--ease);
+  transition: transform var(--dur-slow) var(--ease);
 }
 
 .card:hover .img {
@@ -111,7 +111,7 @@
   /* --progress (0…1) is set by the component on scroll; at least 12% is always visible */
   transform: scaleX(calc(0.12 + var(--progress, 0) * 0.88));
   transform-origin: left;
-  transition: transform 0.2s linear;
+  transition: transform var(--dur-fast) linear;
 }
 
 .arrows {
@@ -127,14 +127,19 @@
   border-radius: 50%;
   border: 1px solid var(--ink-20);
   transition:
-    background-color 0.25s var(--ease),
-    color 0.25s var(--ease),
-    opacity 0.25s var(--ease);
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease),
+    scale var(--dur-fast) var(--ease);
 }
 
 .arrows button:hover:not(:disabled) {
   background: var(--ink);
   color: var(--bg);
+}
+
+.arrows button:active:not(:disabled) {
+  scale: 0.92;
 }
 
 .arrows button:disabled {

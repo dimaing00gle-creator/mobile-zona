@@ -30,7 +30,14 @@
   border-radius: 0;
   font-size: 18px;
   outline: none;
-  transition: border-color 0.25s var(--ease);
+  /* Accent line that grows from the left on focus, drawn over the bottom border */
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background-size var(--dur-base) var(--ease);
   appearance: none;
 }
 
@@ -48,7 +55,7 @@
 
 .field input:focus,
 .field textarea:focus {
-  border-color: var(--accent);
+  background-size: 100% 2px;
 }
 
 .field [aria-invalid="true"] {
@@ -86,6 +93,37 @@
   cursor: progress;
 }
 
+/* Sending: a small spinner next to the label */
+.submit button[aria-busy="true"]::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit button[aria-busy="true"]::after {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.5;
+  }
+}
+
+/* Form and thank-you message share a name, so the swap morphs one into the other */
+.form,
+.success {
+  view-transition-name: lead-form;
+}
+
 .error {
   font-size: 13px;
   color: var(--accent);
@@ -106,6 +144,35 @@
   border-radius: 50%;
   background: var(--accent);
   color: var(--ink);
+  animation: success-pop var(--dur-slow) var(--ease) both;
+}
+
+/* The check mark draws itself after the circle pops in */
+.successIcon path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: check-draw var(--dur-slow) var(--ease) 0.25s forwards;
+}
+
+@keyframes success-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@keyframes check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .successIcon,
+  .successIcon path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Desktop: submit button and consent line centered (form sits centered in Contacts) */
@@ -135,5 +202,10 @@
   }
   .success {
     justify-items: center;
+  }
+  /* centered fields: the focus line grows from the middle */
+  .field input,
+  .field textarea {
+    background-position: 50% 100%;
   }
 }

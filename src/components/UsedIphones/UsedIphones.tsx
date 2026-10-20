@@ -10,7 +10,7 @@ export function UsedIphones() {
       <div className="container">
         <SectionHead id="used-iphones-title" title={block.title} />
 
-        <ul className={styles.grid} aria-label={block.listLabel}>
+        <ul className={`reveal-stagger ${styles.grid}`} aria-label={block.listLabel}>
           {usedIphones.map((p) => (
             <li key={p.id} className={styles.card}>
               <div className={styles.media}>

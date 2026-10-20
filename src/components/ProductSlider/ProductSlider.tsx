@@ -61,7 +61,7 @@ export function ProductSlider() {
       </div>
 
       <div
-        className={styles.viewport}
+        className={`reveal ${styles.viewport}`}
         role="region"
         aria-roledescription={catalog.roleDescription}
         aria-label={catalog.regionLabel}

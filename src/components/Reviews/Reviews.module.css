@@ -16,7 +16,7 @@
   padding: clamp(24px, 2.6vw, 36px);
   border: 1px solid var(--ink-12);
   border-radius: var(--radius);
-  transition: border-color 0.3s var(--ease);
+  transition: border-color var(--dur-base) var(--ease);
 }
 
 .card:hover figure {

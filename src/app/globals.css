@@ -25,6 +25,13 @@
   --header-h: 72px;
   --radius: 4px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Motion: three speeds and two curves for the whole site, so everything moves in one rhythm */
+  --dur-fast: 0.18s; /* hover, press, colour changes */
+  --dur-base: 0.3s; /* small state changes: lines, icons, menus */
+  --dur-slow: 0.7s; /* entrances and image zoom */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --reveal-y: 28px;
 }
 
 @media (max-width: 767px) {
@@ -221,15 +228,21 @@ button {
   line-height: 1;
   white-space: nowrap;
   transition:
-    background-color 0.25s var(--ease),
-    color 0.25s var(--ease),
-    border-color 0.25s var(--ease),
-    transform 0.25s var(--ease);
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    scale var(--dur-fast) var(--ease);
+}
+
+/* Press feedback: the button gives a little, like a real one.
+   `scale` (not transform) so it stacks with buttons positioned via transform */
+.btn:active {
+  scale: 0.97;
 }
 
 .btn svg {
   flex: none;
-  transition: transform 0.3s var(--ease);
+  transition: transform var(--dur-base) var(--ease);
 }
 
 .btn:hover svg {
@@ -265,13 +278,13 @@ button {
   font-weight: 500;
   border-bottom: 1px solid var(--ink-20);
   padding-bottom: 4px;
-  transition: border-color 0.25s var(--ease);
+  transition: border-color var(--dur-fast) var(--ease);
 }
 .link-arrow:hover {
   border-color: currentColor;
 }
 .link-arrow svg {
-  transition: transform 0.3s var(--ease);
+  transition: transform var(--dur-base) var(--ease);
 }
 .link-arrow:hover svg {
   transform: translateX(4px);
@@ -288,4 +301,64 @@ button {
 .theme-dark .btn--accent:hover {
   background: var(--bg);
   color: var(--ink);
+}
+
+/* ---------- Motion ---------- */
+
+/*
+ * Scroll reveal: blocks rise and fade in over the first ~200px after they enter the screen.
+ * CSS only (scroll-driven animations); in browsers without support, or with reduced motion,
+ * content is simply visible. .reveal-stagger staggers direct children, so cards in one row come in turn.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* plain ease-out: the effect follows the scroll, a sharper curve would finish too early */
+    .reveal,
+    .reveal-stagger > * {
+      animation: reveal ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0 entry 200px;
+    }
+    /* up to 4 cards per row: each next one in the row starts a little later */
+    .reveal-stagger > :nth-child(4n + 2) {
+      animation-range: entry 40px entry 240px;
+    }
+    .reveal-stagger > :nth-child(4n + 3) {
+      animation-range: entry 80px entry 280px;
+    }
+    .reveal-stagger > :nth-child(4n + 4) {
+      animation-range: entry 120px entry 320px;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-y);
+  }
+}
+
+/* Looping animations stop while their block is off screen (see OffscreenPause) — saves battery on phones */
+[data-offscreen] *,
+[data-offscreen] *::before,
+[data-offscreen] *::after {
+  animation-play-state: paused !important;
+}
+
+/* View Transitions (form ↔ thank-you message): only the named element morphs, the rest of the page stays put */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-group(*) {
+  animation-duration: var(--dur-slow);
+  animation-timing-function: var(--ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

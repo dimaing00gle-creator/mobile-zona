@@ -2,6 +2,7 @@ import { Fragment, type CSSProperties } from "react";
 import Image from "next/image";
 import { services, servicesAi, servicesBlock } from "@/content/site";
 import { pad2 } from "@/lib/format";
+import { OffscreenPause } from "../OffscreenPause";
 import { AiStage } from "./AiStage";
 import { LeadButton } from "../LeadButton";
 import { SectionHead } from "../SectionHead";
@@ -80,7 +81,7 @@ export function Services() {
         <div className={styles.grid}>
           <div className={styles.listWrap}>
             {/* Robot helper left of the list — desktop only: stays in place and hovers */}
-            <div className={styles.robotRail} aria-hidden="true">
+            <OffscreenPause className={styles.robotRail} aria-hidden="true">
               <div className={styles.robot}>
                 <Image
                   src={robot.src}
@@ -92,9 +93,9 @@ export function Services() {
                 />
                 <span className={styles.robotShadow} />
               </div>
-            </div>
+            </OffscreenPause>
 
-            <ol className={styles.list}>
+            <ol className={`reveal-stagger ${styles.list}`}>
               {services.map((s, i) => (
                 <li key={s.title} className={styles.item}>
                   <span className={styles.num}>{pad2(i + 1)}</span>

@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useId, useState, type FormEvent, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { common, leadForm as t, leadTopics, type LeadTopic } from "@/content/site";
 import { LEAD_PREFILL_EVENT, validateLead, type LeadErrors, type LeadPrefill } from "@/lib/lead";
 import { Check } from "../icons";
 import styles from "./LeadForm.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
+
+/** Swap form ↔ thank-you message with a View Transition where supported (instant otherwise) */
+function morph(update: () => void) {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!document.startViewTransition || reduced) return update();
+  document.startViewTransition(() => flushSync(update));
+}
 
 /** Mask +380 XX XXX XX XX */
 function formatPhone(raw: string) {
@@ -60,7 +68,7 @@ export function LeadForm() {
         body: JSON.stringify({ name, phone, comment, topic, interest, company }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      setStatus("success");
+      morph(() => setStatus("success"));
       // Conversion event for GA4 / GTM, if connected
       (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "generate_lead", lead_topic: topic });
     } catch {
@@ -79,11 +87,13 @@ export function LeadForm() {
         <button
           type="button"
           className="btn btn--ghost"
-          onClick={() => {
-            setStatus("idle");
-            setComment("");
-            setInterest("");
-          }}
+          onClick={() =>
+            morph(() => {
+              setStatus("idle");
+              setComment("");
+              setInterest("");
+            })
+          }
         >
           {t.success.again}
         </button>
@@ -143,7 +153,12 @@ export function LeadForm() {
       </div>
 
       <div className={styles.submit}>
-        <button type="submit" className="btn btn--accent" disabled={status === "sending"}>
+        <button
+          type="submit"
+          className="btn btn--accent"
+          disabled={status === "sending"}
+          aria-busy={status === "sending"}
+        >
           {status === "sending" ? t.sending : common.cta}
         </button>
       </div>

@@ -7,7 +7,8 @@ type Props = {
   children: ReactNode;
 };
 
-// Photo block wrapper: starts the AI animation once, when the block enters the viewport.
+// Photo block wrapper: starts the AI animation once, when the block enters the viewport,
+// and pauses its looping pulse while the block is off screen (data-offscreen, see globals.css).
 // Without JS the attribute is absent, so text and photo show immediately; the effects live in CSS (desktop only).
 export function AiStage({ className, children }: Props) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +27,20 @@ export function AiStage({ className, children }: Props) {
       { threshold: 0.35 },
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    const visibility = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) delete el.dataset.offscreen;
+        else el.dataset.offscreen = "";
+      },
+      { rootMargin: "200px 0px" },
+    );
+    visibility.observe(el);
+
+    return () => {
+      io.disconnect();
+      visibility.disconnect();
+    };
   }, []);
 
   return (

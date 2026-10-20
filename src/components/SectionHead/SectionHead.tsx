@@ -9,7 +9,7 @@ type Props = {
 
 export function SectionHead({ title, id, aside }: Props) {
   return (
-    <div className={styles.head}>
+    <div className={`reveal ${styles.head}`}>
       <h2 className="h2" id={id}>
         {title}
       </h2>
