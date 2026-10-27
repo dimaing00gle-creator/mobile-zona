@@ -76,6 +76,11 @@
     top: calc(var(--header-h) + var(--section-y));
     z-index: 0;
   }
+  /* desktop Safari: AiStage pins the stage with a transform instead (CSS sticky jitters there) */
+  .stage[data-js-sticky] {
+    position: relative;
+    top: auto;
+  }
   .grid {
     position: relative;
     z-index: 1;
@@ -542,6 +547,45 @@
   font-variant-numeric: tabular-nums;
 }
 
+.titleWrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+/* Highlighted service: soft lime row (bleeds past the list so text stays aligned) and a tag */
+.itemFeatured {
+  margin-inline: -20px;
+  padding-inline: 20px;
+  border-bottom-color: transparent;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.itemFeatured:hover {
+  padding-left: 28px;
+}
+
+.itemFeatured .num {
+  color: var(--ink);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 /* Tablet and phone: number above the title, title and description all centered */
 @media (max-width: 1199px) {
   .item {
@@ -553,6 +597,14 @@
   /* hover shift only for the desktop layout */
   .item:hover {
     padding-left: 0;
+  }
+  .itemFeatured,
+  .itemFeatured:hover {
+    margin-inline: -12px;
+    padding-inline: 12px;
+  }
+  .titleWrap {
+    justify-content: center;
   }
   .item p {
     max-width: 46ch;

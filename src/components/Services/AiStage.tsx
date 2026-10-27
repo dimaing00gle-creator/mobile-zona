@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { isDesktopSafari, onLenisChange } from "@/lib/smooth-scroll";
 
 type Props = {
   className?: string;
@@ -40,6 +41,55 @@ export function AiStage({ className, children }: Props) {
     return () => {
       io.disconnect();
       visibility.disconnect();
+    };
+  }, []);
+
+  // Desktop Safari: CSS sticky lags a frame behind Lenis and the photo jitters.
+  // There the stage is pinned with a transform set in the same frame Lenis scrolls.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !isDesktopSafari()) return;
+    const desktop = matchMedia("(min-width: 1200px)");
+    el.dataset.jsSticky = "";
+    let shift = 0;
+
+    const update = () => {
+      let next = 0;
+      if (desktop.matches) {
+        const box = el.parentElement!.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        const cs = getComputedStyle(el);
+        // same offset as the CSS sticky: header + section padding
+        const top =
+          parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) +
+          parseFloat(getComputedStyle(el.closest("section")!).paddingTop);
+        const naturalTop = r.top - shift;
+        const room = box.bottom - (r.bottom - shift) - parseFloat(cs.marginBottom);
+        next = Math.min(Math.max(top - naturalTop, 0), Math.max(room, 0));
+      }
+      if (next !== shift) {
+        shift = next;
+        el.style.transform = shift ? `translate3d(0, ${shift}px, 0)` : "";
+      }
+    };
+
+    let offLenis: (() => void) | undefined;
+    const unsubscribe = onLenisChange((lenis) => {
+      offLenis?.();
+      offLenis = lenis?.on("scroll", update);
+      update();
+    });
+    // native scroll (Lenis paused, keyboard, scrollbar) and layout changes
+    addEventListener("scroll", update, { passive: true });
+    addEventListener("resize", update);
+
+    return () => {
+      unsubscribe();
+      offLenis?.();
+      removeEventListener("scroll", update);
+      removeEventListener("resize", update);
+      delete el.dataset.jsSticky;
+      el.style.transform = "";
     };
   }, []);
 

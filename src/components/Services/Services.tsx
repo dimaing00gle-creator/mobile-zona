@@ -97,9 +97,15 @@ export function Services() {
 
             <ol className={`reveal-stagger ${styles.list}`}>
               {services.map((s, i) => (
-                <li key={s.title} className={styles.item}>
+                <li
+                  key={s.title}
+                  className={"badge" in s ? `${styles.item} ${styles.itemFeatured}` : styles.item}
+                >
                   <span className={styles.num}>{pad2(i + 1)}</span>
-                  <h3 className="h3">{s.title}</h3>
+                  <div className={styles.titleWrap}>
+                    <h3 className="h3">{s.title}</h3>
+                    {"badge" in s && <span className={styles.badge}>{s.badge}</span>}
+                  </div>
                   <p className="muted">
                     {s.text.split("\n").map((part, k) => (
                       <Fragment key={k}>

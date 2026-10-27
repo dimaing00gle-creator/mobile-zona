@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef } from "react";
 import { hero, site } from "@/content/site";
 import { telHref } from "@/lib/format";
-import { getLenis } from "@/lib/smooth-scroll";
+import { startScroll, stopScroll } from "@/lib/smooth-scroll";
 import styles from "./CallPicker.module.css";
 
 const { call } = hero;
@@ -26,8 +26,8 @@ export function CallPicker() {
       const inside = r.top <= e.clientY && e.clientY <= r.bottom && r.left <= e.clientX && e.clientX <= r.right;
       if (!inside) el.close();
     };
-    // Smooth scroll keeps running under a modal otherwise
-    const onClose = () => getLenis()?.start();
+    // Page scrolling keeps running under a modal otherwise
+    const onClose = () => startScroll();
 
     el.addEventListener("click", onClick);
     el.addEventListener("close", onClose);
@@ -38,7 +38,7 @@ export function CallPicker() {
   }, []);
 
   const open = () => {
-    getLenis()?.stop();
+    stopScroll();
     dialog.current?.showModal();
   };
 
