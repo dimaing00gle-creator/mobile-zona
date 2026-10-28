@@ -272,6 +272,7 @@ button {
 }
 
 .link-arrow {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -282,6 +283,12 @@ button {
 }
 .link-arrow:hover {
   border-color: currentColor;
+}
+/* Invisible hit area: the link looks the same but is at least 44px tall for a finger */
+.link-arrow::before {
+  content: "";
+  position: absolute;
+  inset: -8px -4px;
 }
 .link-arrow svg {
   transition: transform var(--dur-base) var(--ease);

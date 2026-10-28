@@ -1,6 +1,7 @@
 import { hero } from "@/content/site";
 import { HeroMedia } from "./HeroMedia";
-import { CallPicker } from "./CallPicker";
+import { CallPicker } from "../CallPicker";
+import { LeadButton } from "../LeadButton";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -24,6 +25,9 @@ export function Hero() {
         <div className={styles.ctas}>
           <CallPicker />
         </div>
+        <LeadButton variant="link" className={styles.leadLink}>
+          {hero.leadLink}
+        </LeadButton>
       </div>
     </section>
   );

@@ -222,9 +222,20 @@
   }
 }
 
+/* Call icon: narrow phones only, where the header CTA is hidden */
+.actions .call {
+  display: none;
+}
+
 @media (max-width: 479px) {
   .cta {
     display: none;
+  }
+  .actions {
+    gap: 10px;
+  }
+  .actions .call {
+    display: grid;
   }
   .logo {
     font-size: 15px;

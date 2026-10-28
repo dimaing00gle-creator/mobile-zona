@@ -75,6 +75,7 @@
 }
 
 .links a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -84,6 +85,13 @@
 
 .links a:hover {
   border-color: currentColor;
+}
+
+/* Invisible hit area: phone and route links stay small but get a 44px tap target */
+.links a::before {
+  content: "";
+  position: absolute;
+  inset: -10px -6px;
 }
 
 .note {

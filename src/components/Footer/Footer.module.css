@@ -107,6 +107,25 @@
   .legal {
     justify-content: center;
   }
+  /* 44px tap targets: links get vertical padding instead of the list gap */
+  .links {
+    gap: 0;
+  }
+  .links a {
+    display: inline-block;
+    padding-block: 12px;
+  }
+  .title {
+    margin-bottom: 4px;
+  }
+  .legal a {
+    position: relative;
+  }
+  .legal a::before {
+    content: "";
+    position: absolute;
+    inset: -12px -4px;
+  }
   /* the dash would push the motto off-center */
   .dash {
     display: none;

@@ -78,6 +78,24 @@
   transform: rotate(-45deg);
 }
 
+/* Icon variant: round 44px button like the header burger */
+.iconBtn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--ink-20);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.iconBtn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 .note {
   margin-top: 8px;
   font-size: 14px;

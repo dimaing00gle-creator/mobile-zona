@@ -4,12 +4,19 @@ import { useEffect, useId, useRef } from "react";
 import { hero, site } from "@/content/site";
 import { telHref } from "@/lib/format";
 import { startScroll, stopScroll } from "@/lib/smooth-scroll";
+import { Phone } from "../icons";
 import styles from "./CallPicker.module.css";
 
 const { call } = hero;
 
+type Props = {
+  /** "button" — accent pill (first screen); "icon" — round phone icon (header on phones) */
+  variant?: "button" | "icon";
+  className?: string;
+};
+
 /** "Call" button: opens a modal where the visitor picks the number of their mobile operator */
-export function CallPicker() {
+export function CallPicker({ variant = "button", className }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const titleId = useId();
 
@@ -44,9 +51,26 @@ export function CallPicker() {
 
   return (
     <>
-      <button type="button" className="btn btn--accent" aria-haspopup="dialog" onClick={open}>
-        {call.label}
-      </button>
+      {variant === "icon" ? (
+        <button
+          type="button"
+          className={[styles.iconBtn, className].filter(Boolean).join(" ")}
+          aria-haspopup="dialog"
+          aria-label={call.label}
+          onClick={open}
+        >
+          <Phone />
+        </button>
+      ) : (
+        <button
+          type="button"
+          className={["btn btn--accent", className].filter(Boolean).join(" ")}
+          aria-haspopup="dialog"
+          onClick={open}
+        >
+          {call.label}
+        </button>
+      )}
 
       <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId}>
         <div className={styles.head}>

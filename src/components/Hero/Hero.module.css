@@ -107,6 +107,9 @@
 .inner > :nth-child(3) {
   animation-delay: 0.24s;
 }
+.inner > :nth-child(4) {
+  animation-delay: 0.36s;
+}
 
 @keyframes hero-rise {
   from {
@@ -165,6 +168,11 @@
   margin-top: 40px;
 }
 
+/* Lead form link under the call button — phones only (tablet and desktop have the header CTA) */
+.leadLink {
+  display: none;
+}
+
 /* Desktop: the button is as wide as the paragraph above it */
 @media (min-width: 1200px) {
   .ctas {
@@ -179,6 +187,11 @@
   .ctas {
     align-self: stretch;
   }
+  .leadLink {
+    display: inline-flex;
+    margin-top: 20px;
+    font-size: 15px;
+  }
   .ctas > * {
     flex: 1 1 100%;
   }
@@ -188,6 +201,11 @@
 @media (max-width: 479px) {
   .title {
     font-size: clamp(30px, 9.4vw, 44px);
+  }
+  /* keep the link on one line down to 320px */
+  .leadLink {
+    font-size: 14px;
+    white-space: nowrap;
   }
 }
 

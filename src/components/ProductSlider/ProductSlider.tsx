@@ -76,7 +76,8 @@ export function ProductSlider() {
                   fill
                   sizes="(max-width: 767px) 100vw, (max-width: 1199px) 480px, 400px"
                   className={styles.img}
-                  loading={i < 4 ? "eager" : "lazy"}
+                  // Below the first screen: the browser loads each photo as it nears the viewport
+                  loading="lazy"
                 />
                 <span className={`caps ${styles.num}`}>{pad2(i + 1)}</span>
               </div>

@@ -45,3 +45,16 @@ export function Check({ size = 18, className }: IconProps) {
     </svg>
   );
 }
+
+export function Phone({ size = 18, className }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <path
+        d="M6.6 3.5h2.3l1.4 4.2-1.9 1.4a12 12 0 0 0 6.5 6.5l1.4-1.9 4.2 1.4v2.3a2 2 0 0 1-2.1 2A15.6 15.6 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

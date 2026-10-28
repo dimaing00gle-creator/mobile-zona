@@ -59,6 +59,8 @@ export const hero = {
     src: "/images/hero.jpg",
     alt: "Роботизована рука тримає білий смартфон із потрійною камерою",
   },
+  // Text link under the call button (phones): for visitors who'd rather not call
+  leadLink: "або залиште заявку — передзвонимо",
   // "Call" button: opens a dialog where the visitor picks their mobile operator's number
   call: {
     label: "Зателефонувати",
@@ -280,6 +282,10 @@ export const servicesBlock = {
 
 export const about = {
   title: "Магазини, куди хочеться повернутися",
+  // owner's image that opens the block
+  photo: { src: "/about-robot.webp", alt: "Робот-помічник працює за ноутбуком" },
+  // desktop: hand holding a phone, the block's content sits on its screen (decorative)
+  phone: "/about-phone-v2.webp",
   text: [
     "Mobile Zona — українська мережа магазинів смартфонів та аксесуарів.\nМи віримо, що покупку техніки варто робити наживо: потримати пристрій у\u00a0руках, поставити питання й отримати чесну відповідь.",
   ],

@@ -4,6 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { common, header, nav, site } from "@/content/site";
 import { pad2, telHref } from "@/lib/format";
 import { getLenis } from "@/lib/smooth-scroll";
+import { CallPicker } from "../CallPicker";
 import { LeadButton } from "../LeadButton";
 import { Logo } from "../Logo";
 import styles from "./Header.module.css";
@@ -68,6 +69,8 @@ export function Header() {
           <LeadButton size="sm" arrow className={`${styles.cta} ${pastHero ? "" : styles.ctaQuiet}`}>
             {header.cta}
           </LeadButton>
+          {/* Narrow phones: the CTA above is hidden, so a call icon stays within reach */}
+          <CallPicker variant="icon" className={styles.call} />
           <button
             type="button"
             className={styles.burger}

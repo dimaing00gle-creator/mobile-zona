@@ -1,3 +1,31 @@
+/* Photo across the content width, above the text */
+.photo {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  margin-bottom: clamp(40px, 5vw, 72px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink-05);
+}
+
+.photoImg {
+  object-fit: cover;
+  /* keep the robot's head and the laptop in frame when the photo is cropped */
+  object-position: center 45%;
+}
+
+@media (max-width: 1199px) {
+  .photo {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 767px) {
+  .photo {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 /* text centered in the section, no photo */
 .copy {
   display: grid;
@@ -42,6 +70,15 @@
   margin-bottom: 4px;
 }
 
+/* phone mockup and its screen exist only in the desktop effect below */
+.phoneImg {
+  display: none;
+}
+
+.screen {
+  display: contents;
+}
+
 /* store logo as the last item; cropped to a circle, the file's dark corners differ from the section background */
 .logo {
   display: block;
@@ -57,8 +94,8 @@
 }
 
 /*
- * Desktop: the block sticks under the header, and over 1.5 screens of scrolling
- * the values slide over one another in turn. Only where the browser supports
+ * Desktop: the content sits on a phone mockup that sticks under the header, and over
+ * 1.5 screens of scrolling the values slide over one another on its screen. Only where the browser supports
  * scroll-driven animations and the user hasn't asked for reduced motion;
  * otherwise it's the plain list above.
  */
@@ -66,7 +103,10 @@
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
     .track {
       /* where the content sticks and how much scrolling the effect lasts */
-      --pin-top: calc(var(--header-h) + var(--section-y));
+      /* phone height: its tilted screen (top ~80% of the image) fits under the header, the hand may run off the bottom */
+      --phone-h: min(calc((100vh - var(--header-h) - 48px) / 0.82), 1000px);
+      /* the tilt lifts the top corner by ~6% of the height, keep it clear of the header */
+      --pin-top: calc(var(--header-h) + 24px + 0.06 * var(--phone-h));
       --pin-run: 150vh;
       /* effect start on the cover range: the moment the content sticks */
       --pin-start: calc(100vh - var(--pin-top));
@@ -85,6 +125,67 @@
       top: var(--pin-top);
     }
 
+    /* the photo is replaced by the phone mockup */
+    .photo {
+      display: none;
+    }
+
+    /* the content block becomes the phone; image size 580x905, phone upright in the file */
+    .copy {
+      position: relative;
+      display: block;
+      width: calc(var(--phone-h) * 580 / 905);
+      max-width: none;
+      height: var(--phone-h);
+      margin-inline: auto;
+      /* back to the tilt of the original photo: the screen content leans with the phone */
+      rotate: 12.4deg;
+    }
+
+    .phoneImg {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* the phone screen, measured on the image just inside its white inner border */
+    .screen {
+      position: absolute;
+      top: 4.64%;
+      left: 30.17%;
+      width: 47.41%;
+      height: 65.08%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 16px;
+      /* corner radius ~30px of the 580px-wide image */
+      border-radius: 10.9% / 5.1%;
+      background: var(--ink);
+      container-type: inline-size;
+    }
+
+    /* type scaled to the screen width */
+    .text {
+      max-width: none;
+      font-size: clamp(12px, 6.2cqi, 16px);
+      line-height: 1.45;
+    }
+
+    .values {
+      margin-top: 16px;
+    }
+
+    .valueText {
+      font-size: clamp(12px, 5.6cqi, 15px);
+    }
+
+    .logo {
+      width: 40cqi;
+    }
+
     /* all values in one grid cell, each with its own top line */
     .values {
       padding-top: 0;
@@ -94,7 +195,7 @@
     .values > li,
     .values > li + li {
       grid-area: 1 / 1;
-      padding-top: 32px;
+      padding-top: 16px;
       border-top: 1px solid var(--ink-12);
       /* dark section background so an item covers the previous one */
       background: var(--ink);
